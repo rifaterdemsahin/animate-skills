@@ -1,0 +1,41 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"headline","type":"string","label":"Headline","default":"Animate Skills"},{"id":"tagline","type":"string","label":"Tagline","default":"HTML in, video out"}]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #0d0f1a;
+        --ink: #ffffff;
+        --accent: #77ccff;
+        --accent-2: #cc77ff;
+        --font-display: sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
+      #root { position: relative; width: 100%; height: 100%; font-family: var(--font-display); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+      <div
+        id="title"
+        data-composition-id="title"
+        data-composition-src="compositions/title.html"
+        data-start="0"
+        data-duration="6"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>
