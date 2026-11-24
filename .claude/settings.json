@@ -1,0 +1,35 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"🎬 Animation skills: $(jq -r '[.[].slug]|join(\", \")' skills/skills.json)\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // empty'); case \"$f\" in *.css|*.html) grep -q prefers-reduced-motion \"$f\" || echo \"⚠️ $f: no prefers-reduced-motion guard\" >&2 ;; esac; exit 0"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ls -1 out/ 2>/dev/null | sed 's/^/🎁 artifact: /'"
+          }
+        ]
+      }
+    ]
+  }
+}

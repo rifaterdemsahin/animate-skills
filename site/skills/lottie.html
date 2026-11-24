@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lottie · Animate Skills</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+<link rel="stylesheet" href="../style.css">
+</head><body>
+<button class="menu-toggle" aria-label="Menu">☰ Menu</button>
+<nav class="menu"><a class="brand" href="../index.html">🎬 Animate Skills</a>
+<a href="../index.html" class="">🏠 Overview</a>
+<a href="../index.html#pipeline">🗂️ Database → Artifact → Execution</a>
+<a href="../index.html#claude-md">📄 CLAUDE.md</a>
+<a href="../index.html#hooks">🪝 Hooks</a>
+<h4>Video</h4>
+<a class="" href="../skills/remotion.html">🎬 Remotion</a>
+<a class="" href="../skills/hyperframes.html">🎞️ HyperFrames</a>
+<a class="" href="../skills/gsap-remotion.html">🧩 GSAP in Remotion</a>
+<a class="" href="../skills/animated-video.html">📽️ Animated Video (design kit)</a>
+<h4>Web</h4>
+<a class="" href="../skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="on" href="../skills/lottie.html">🫧 Lottie</a>
+<a class="" href="../skills/animejs.html">✨ Anime.js</a>
+<a class="" href="../skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
+<h4>Math &amp; Explainers</h4>
+<a class="" href="../skills/manim.html">📐 Manim</a>
+<h4>3D</h4>
+<a class="" href="../skills/threejs-webgl.html">🧊 Three.js / WebGL</a>
+<h4>Generative</h4>
+<a class="" href="../skills/algorithmic-art.html">🎨 Algorithmic Art</a>
+<a class="" href="../skills/slack-gif-creator.html">🚀 Slack GIF Creator</a>
+<h4>Design</h4>
+<a class="" href="../skills/figma-motion.html">🎛️ Figma Motion (MCP)</a>
+<a class="ext" href="https://skills.sh" target="_blank" rel="noopener">🔎 Browse skills.sh ↗</a></nav>
+<main>
+<header class="hero small"><p class="kicker">🫧 Web skill</p>
+<h1>Lottie</h1><p class="lede">Guides the agent through loading, controlling and segment-playing After Effects Lottie files, plus wiring them to hover, scroll or state changes.</p>
+<div class="links"><a class="btn" href="https://skills.sh/iart-ai/web-animation-skills" target="_blank" rel="noopener">🔎 View on skills.sh</a>
+<a class="btn ghost" href="https://github.com/iart-ai/web-animation-skills" target="_blank" rel="noopener">📦 Source</a></div></header>
+
+<section class="demo"><svg class="d-check" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M14 27l8 8 16-16"/></svg></section>
+
+<section class="facts">
+<div><span>⚙️ Runtime</span>lottie-web / dotLottie</div>
+<div><span>🎁 Artifact</span>Vector animation JSON embedded in a page or video</div>
+<div><span>🏷️ Source</span>iart-ai/web-animation-skills (lottie skill) and Remotion Lottie rules</div>
+<div><span>🎯 Use it for</span>Designer-made icon animations, onboarding illustrations, loaders exported from After Effects.</div>
+</section>
+
+<h2>⚡ 1. Install (database)</h2>
+<p>Pull the skill from the registry into <code>.claude/skills/</code> so the agent can discover it.</p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c11">📋 Copy</button></div><pre id="c11"><code>npx skills add iart-ai/web-animation-skills</code></pre></div>
+
+<h2>💬 2. Prompt it (execution)</h2>
+<p>Name the skill in your prompt so Claude loads its <code>SKILL.md</code> before acting.</p>
+<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c12">📋 Copy</button></div><pre id="c12"><code>Use the lottie skill. Embed success.json, play frames 0-60 on submit and loop 60-90 while the request is pending.</code></pre></div>
+
+<h2>🧠 What the agent does</h2><ol class="steps"><li>Agent identifies the Lottie asset and its markers/segments.</li><li>Writes lottie.loadAnimation() with renderer, loop and autoplay set.</li><li>Binds playSegments() to UI events.</li><li>Produces an HTML artifact or a Remotion &lt;Lottie&gt; layer.</li></ol>
+
+<h2>🧪 Core pattern (artifact)</h2>
+<div class="code"><div class="code-bar"><span>code</span><button data-copy="c13">📋 Copy</button></div><pre id="c13"><code>const anim = lottie.loadAnimation({container: el, path: &#x27;success.json&#x27;, autoplay: false});
+form.onsubmit = () =&gt; anim.playSegments([0, 60], true);</code></pre></div>
+
+<h2>📄 CLAUDE.md snippet</h2>
+<p>Paste into your project's <code>CLAUDE.md</code> so every session knows when to use this skill.</p>
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c14">📋 Copy</button></div><pre id="c14"><code>## Animation skill: Lottie
+- For designer-made icon animations, onboarding illustrations, loaders exported from after effects, load the `lottie` skill before writing code.
+- Runtime: lottie-web / dotLottie. Expected artifact: Vector animation JSON embedded in a page or video.
+- Animate transform and opacity only; always respect prefers-reduced-motion.
+- Put source in `animations/lottie/`, write rendered output to `out/` (git-ignored).
+- After rendering, report the artifact path and how to preview it.</code></pre></div>
+
+<h2>🪝 Hook: check every edit</h2>
+<p>Add to <code>.claude/settings.json</code>. After each Write/Edit of a <code>.json</code> file, Claude Code runs the check and the output comes back to the agent.</p>
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c15">📋 Copy</button></div><pre id="c15"><code>{
+  &quot;hooks&quot;: {
+    &quot;PostToolUse&quot;: [
+      {
+        &quot;matcher&quot;: &quot;Write|Edit&quot;,
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;f=$(jq -r &#x27;.tool_input.file_path // empty&#x27;); case \&quot;$f\&quot; in *.json) python3 -m json.tool \&quot;$f\&quot; &gt;/dev/null ;; esac; exit 0&quot;
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre></div>
+
+<footer>Built from <code>skills/skills.json</code> by <code>build.py</code> · served on fly.io · skills via <a href="https://skills.sh">skills.sh</a></footer>
+</main>
+<script>
+document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-copy]');if(!b)return;
+const t=document.getElementById(b.dataset.copy).innerText;
+try{await navigator.clipboard.writeText(t);}catch(_){const r=document.createRange();
+r.selectNodeContents(document.getElementById(b.dataset.copy));getSelection().removeAllRanges();getSelection().addRange(r);document.execCommand('copy');}
+const o=b.textContent;b.textContent='✅ Copied';setTimeout(()=>b.textContent=o,1400);});
+document.querySelector('.menu-toggle')?.addEventListener('click',()=>document.body.classList.toggle('nav-open'));
+
+document.querySelectorAll('.d-flow').forEach(cv=>{const x=cv.getContext('2d');let seed=7;
+const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const P=[...Array(260)].map(()=>({x:rnd()*cv.width,y:rnd()*cv.height}));
+const n=(a,b)=>Math.sin(a*.013+Math.cos(b*.011))*Math.cos(b*.009);
+function f(t){x.fillStyle='rgba(13,15,26,.06)';x.fillRect(0,0,cv.width,cv.height);
+x.fillStyle='#7cf';for(const p of P){const a=n(p.x+t*.02,p.y)*Math.PI*2;p.x+=Math.cos(a);p.y+=Math.sin(a);
+if(p.x<0||p.x>cv.width||p.y<0||p.y>cv.height){p.x=rnd()*cv.width;p.y=rnd()*cv.height}x.fillRect(p.x,p.y,1.4,1.4)}
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches)requestAnimationFrame(f)}requestAnimationFrame(f)});
+</script>
+</body></html>
