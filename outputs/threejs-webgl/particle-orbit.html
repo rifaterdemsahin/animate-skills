@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Particle Orbit · threejs-animation</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #0d0f1a; overflow: hidden }
+  canvas { display: block }
+  .label { position: fixed; left: 24px; bottom: 20px; color: #9a9db8; font: 14px system-ui, sans-serif }
+</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }</script>
+</head>
+<body>
+<div class="label">🧊 12,000 seeded particles on a torus knot · move the mouse</div>
+<script type="module">
+  import * as THREE from "three";
+
+  // Seeded PRNG so every frame reproduces (skill rule: no unseeded randomness)
+  let seed = 42; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));   // cap DPR for mobile
+  renderer.setSize(innerWidth, innerHeight);
+  document.body.appendChild(renderer.domElement);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 100);
+  camera.position.set(0, 0, 11);
+  renderer.setClearColor("#0d0f1a");
+
+  const knot = new THREE.TorusKnotGeometry(2.6, 0.75, 400, 32);
+  const src = knot.attributes.position, COUNT = 12000;
+  const pos = new Float32Array(COUNT * 3), col = new Float32Array(COUNT * 3);
+  const a = new THREE.Color("#77ccff"), b = new THREE.Color("#cc77ff"), c = new THREE.Color();
+  for (let i = 0; i < COUNT; i++) {
+    const j = Math.floor(rnd() * src.count);
+    pos[i * 3] = src.getX(j) + (rnd() - .5) * .25; pos[i * 3 + 1] = src.getY(j) + (rnd() - .5) * .25; pos[i * 3 + 2] = src.getZ(j) + (rnd() - .5) * .25;
+    c.copy(a).lerp(b, (src.getY(j) + 3.4) / 6.8); col.set([c.r, c.g, c.b], i * 3);
+  }
+  knot.dispose();
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  const points = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.045, vertexColors: true, transparent: true, opacity: .9, depthWrite: false, blending: THREE.AdditiveBlending }));
+  scene.add(points);
+
+  const mouse = new THREE.Vector2();
+  addEventListener("pointermove", (e) => mouse.set(e.clientX / innerWidth - .5, e.clientY / innerHeight - .5));
+  addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function frame(t) {                                    // scene state is a pure function of elapsed time
+    points.rotation.y = t * 0.25; points.rotation.x = Math.sin(t * 0.3) * 0.4;
+    camera.position.x += (mouse.x * 3 - camera.position.x) * 0.05;
+    camera.position.y += (-mouse.y * 3 - camera.position.y) * 0.05;
+    camera.lookAt(0, 0, 0);
+    renderer.render(scene, camera);
+  }
+  const t = new URLSearchParams(location.search).get("t");
+  if (t !== null || reduce) { frame(parseFloat(t ?? 2)); window.__ready = true; }   // ?t=N or reduced motion: one still frame
+  else { const clock = new THREE.Clock(); renderer.setAnimationLoop(() => frame(clock.getElapsedTime())); window.__ready = true; }
+</script>
+</body>
+</html>

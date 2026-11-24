@@ -17,6 +17,22 @@
       "computedHash": "4a85abfeaa09f2dd2c4b76c85d57b65f61dc10d55c3cca245989cee8897c2be5",
       "installMode": "copy"
     },
+    "animated-video": {
+      "source": "bluzir/claude-code-design",
+      "commit": "ce68c84edb8b4ae0d82e3cbae216190443c474b7",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/animated-video/SKILL.md",
+      "computedHash": "c35eaacdf26e6109bcd8ff1334a4c695888cbd2d8dc799d689690b0a177525c3",
+      "installMode": "copy"
+    },
+    "animejs": {
+      "source": "AvaBillions2040/claudedesignskills-02-02-2026",
+      "commit": "1da73febff0c3e1dfefc07f8a5ef8f7d1dfdb6cd",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/animejs/SKILL.md",
+      "computedHash": "44f9ade0880f61041c326738b3fc39dc06887f9384fc8cf344c62503c8187f21",
+      "installMode": "copy"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "commit": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
@@ -87,6 +103,14 @@
       "sourceType": "github",
       "skillPath": "skills/svg-animation/SKILL.md",
       "computedHash": "cfcf1a801009db1ee4d5141c749acbf6c5eff23534610c4ac3c87c16580809df",
+      "installMode": "copy"
+    },
+    "threejs-animation": {
+      "source": "iart-ai/webgl-animation-skills",
+      "commit": "0041933813688c357804f7b13dcb85095c5a3210",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-animation/SKILL.md",
+      "computedHash": "0ba8eea2da421691a047a1a3e4b4d328f513e5a7685edd3da7674b69895afc78",
       "installMode": "copy"
     }
   }

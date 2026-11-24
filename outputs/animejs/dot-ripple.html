@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dot Ripple · animejs</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0d0f1a; color: #fff; font: 16px system-ui, sans-serif }
+  .wrap { display: grid; gap: 28px; justify-items: center }
+  .grid { display: grid; grid-template-columns: repeat(13, 22px); gap: 12px; cursor: pointer }
+  .dot { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #77ccff, #cc77ff) }
+  svg path { fill: none; stroke: #77ccff; stroke-width: 4; stroke-linecap: round }
+  p { color: #9a9db8; margin: 0 }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <svg width="420" height="60" viewBox="0 0 420 60"><path id="line" d="M10 30 Q 60 0 110 30 T 210 30 T 310 30 T 410 30"/></svg>
+  <div class="grid" id="grid"></div>
+  <p>Click any dot to ripple from it</p>
+</div>
+<script>
+  const N = 13, grid = document.getElementById("grid");
+  for (let i = 0; i < N * N; i++) { const d = document.createElement("div"); d.className = "dot"; d.dataset.i = i; grid.appendChild(d); }
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Pattern 3 (SVG line drawing) + Pattern 2 (stagger from center) on one timeline
+  const tl = anime.timeline({ autoplay: false, easing: "easeOutExpo" });
+  tl.add({ targets: "#line", strokeDashoffset: [anime.setDashoffset, 0], duration: 1200, easing: "easeInOutSine" })
+    .add({ targets: ".dot", scale: [{ value: 0.1, duration: 0 }, { value: 1, duration: 700 }], opacity: [0, 1],
+           delay: anime.stagger(45, { grid: [N, N], from: "center" }) }, "-=600")
+    .add({ targets: ".dot", scale: [{ value: 1.5, duration: 260, easing: "easeOutSine" }, { value: 1, duration: 600, easing: "easeOutElastic(1, .5)" }],
+           delay: anime.stagger(40, { grid: [N, N], from: "center" }) });
+
+  const t = new URLSearchParams(location.search).get("t");
+  if (t !== null) tl.seek(parseFloat(t) * 1000);       // seek harness: ?t=N seconds
+  else if (reduce) tl.seek(tl.duration);                // reduced motion: show the end state, no ripple
+  else tl.play();
+  window.__ready = true;
+
+  grid.addEventListener("click", (e) => {
+    if (reduce || !e.target.dataset.i) return;
+    anime({ targets: ".dot", scale: [{ value: 1.6, duration: 220 }, { value: 1, duration: 700, easing: "easeOutElastic(1, .5)" }],
+            delay: anime.stagger(35, { grid: [N, N], from: +e.target.dataset.i }) });
+  });
+</script>
+</body>
+</html>
