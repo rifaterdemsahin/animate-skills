@@ -64,8 +64,8 @@ export const SkillsIntro: React.FC = () => {
     >
       <Title />
       <div style={{ display: "flex", gap: 40 }}>
-        <Stat value="13" label="skills" delay={1.2} />
-        <Stat value="11" label="installed" delay={1.5} />
+        <Stat value="14" label="skills" delay={1.2} />
+        <Stat value="12" label="outputs" delay={1.5} />
         <Stat value="1" label="database" delay={1.8} />
       </div>
     </AbsoluteFill>

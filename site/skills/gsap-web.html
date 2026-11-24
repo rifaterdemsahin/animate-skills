@@ -18,6 +18,7 @@
 <a class="" href="../skills/animated-video.html">📽️ Animated Video (design kit)</a>
 <h4>Web</h4>
 <a class="on" href="../skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="" href="../skills/svg-animation.html">〰️ SVG Animation</a>
 <a class="" href="../skills/lottie.html">🫧 Lottie</a>
 <a class="" href="../skills/animejs.html">✨ Anime.js</a>
 <a class="" href="../skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
@@ -34,10 +35,13 @@
 <main>
 <header class="hero small"><p class="kicker">🌀 Web skill</p>
 <h1>GSAP Web Animation</h1><p class="lede">Part of a web-motion pack covering GSAP timelines, ScrollTrigger, SplitText, SVG, Lottie, micro-interactions, page transitions and 60fps performance rules.</p>
-<div class="links"><a class="btn" href="https://skills.sh/iart-ai/web-animation-skills" target="_blank" rel="noopener">🔎 View on skills.sh</a>
+<div class="links"><a class="btn" href="https://skills.sh/iart-ai/web-animation-skills/gsap-web" target="_blank" rel="noopener">🔎 View on skills.sh</a>
 <a class="btn ghost" href="https://github.com/iart-ai/web-animation-skills" target="_blank" rel="noopener">📦 Source</a></div></header>
 
-<section class="demo"><div class="d-split"><span style="--i:0">T</span><span style="--i:1">I</span><span style="--i:2">M</span><span style="--i:3">E</span><span style="--i:4">L</span><span style="--i:5">I</span><span style="--i:6">N</span><span style="--i:7">E</span></div></section>
+<section class="output"><h2>🎁 Output made with this skill <span class="badge">✅ built</span></h2><figure><iframe src="../outputs/gsap-web/pipeline-hero.html" title="Pipeline hero: SplitText + DrawSVG on one master timeline, ?t=N seek harness, tiered reduced motion" loading="lazy"></iframe><figcaption>Pipeline hero: SplitText + DrawSVG on one master timeline, ?t=N seek harness, tiered reduced motion
+<span class="links"><a href="../outputs/gsap-web/pipeline-hero.html" target="_blank" rel="noopener">Open full ↗</a>
+<a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/gsap-web/pipeline-hero.html" target="_blank" rel="noopener">GitHub ↗</a></span></figcaption></figure></section>
+
 
 <section class="facts">
 <div><span>⚙️ Runtime</span>GSAP (timelines, ScrollTrigger, SplitText)</div>
@@ -48,22 +52,26 @@
 
 <h2>⚡ 1. Install (database)</h2>
 <p>Pull the skill from the registry into <code>.claude/skills/</code> so the agent can discover it.</p>
-<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c6">📋 Copy</button></div><pre id="c6"><code>npx skills add iart-ai/web-animation-skills</code></pre></div>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c7">📋 Copy</button></div><pre id="c7"><code>npx skills add iart-ai/web-animation-skills -s gsap-web</code></pre></div>
 
 <h2>💬 2. Prompt it (execution)</h2>
 <p>Name the skill in your prompt so Claude loads its <code>SKILL.md</code> before acting.</p>
-<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c7">📋 Copy</button></div><pre id="c7"><code>Use the gsap-web skill. Build a hero where the headline splits into characters and staggers in, then pin the section and scrub a 3-step timeline on scroll.</code></pre></div>
+<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c8">📋 Copy</button></div><pre id="c8"><code>Use the gsap-web skill. Build a hero where the headline splits into characters and staggers in, then pin the section and scrub a 3-step timeline on scroll.</code></pre></div>
 
 <h2>🧠 What the agent does</h2><ol class="steps"><li>Agent reads the skill&#x27;s GSAP rules (timeline-first, transforms only, cleanup on unmount).</li><li>Writes a gsap.timeline() with labelled steps and ScrollTrigger config.</li><li>Respects prefers-reduced-motion with gsap.matchMedia().</li><li>Ships an HTML/JS artifact you open in a browser.</li></ol>
 
+<h2>▶️ Run it again</h2>
+<p>Source: <a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/gsap-web/pipeline-hero.html" target="_blank" rel="noopener"><code>outputs/gsap-web/pipeline-hero.html</code></a> · installed skill: <a href="https://github.com/rifaterdemsahin/animate-skills/tree/main/.claude/skills/gsap-web" target="_blank" rel="noopener"><code>.claude/skills/gsap-web</code></a>, <a href="https://github.com/rifaterdemsahin/animate-skills/tree/main/.claude/skills/accessible-animation" target="_blank" rel="noopener"><code>.claude/skills/accessible-animation</code></a></p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c9">📋 Copy</button></div><pre id="c9"><code>open outputs/gsap-web/pipeline-hero.html   # add ?t=2 to freeze a frame</code></pre></div>
+
 <h2>🧪 Core pattern (artifact)</h2>
-<div class="code"><div class="code-bar"><span>code</span><button data-copy="c8">📋 Copy</button></div><pre id="c8"><code>const tl = gsap.timeline({scrollTrigger:{trigger:&#x27;.hero&#x27;,pin:true,scrub:1}});
+<div class="code"><div class="code-bar"><span>code</span><button data-copy="c10">📋 Copy</button></div><pre id="c10"><code>const tl = gsap.timeline({scrollTrigger:{trigger:&#x27;.hero&#x27;,pin:true,scrub:1}});
 tl.from(&#x27;.char&#x27;,{y:40,opacity:0,stagger:0.03})
   .to(&#x27;.card&#x27;,{x:200,rotate:8},&#x27;&lt;0.2&#x27;);</code></pre></div>
 
 <h2>📄 CLAUDE.md snippet</h2>
 <p>Paste into your project's <code>CLAUDE.md</code> so every session knows when to use this skill.</p>
-<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c9">📋 Copy</button></div><pre id="c9"><code>## Animation skill: GSAP Web Animation
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c11">📋 Copy</button></div><pre id="c11"><code>## Animation skill: GSAP Web Animation
 - For scroll-driven storytelling, landing-page hero sequences, orchestrated ui choreography, load the `gsap-web` skill before writing code.
 - Runtime: GSAP (timelines, ScrollTrigger, SplitText). Expected artifact: Animated web page / component.
 - Animate transform and opacity only; always respect prefers-reduced-motion.
@@ -72,7 +80,7 @@ tl.from(&#x27;.char&#x27;,{y:40,opacity:0,stagger:0.03})
 
 <h2>🪝 Hook: check every edit</h2>
 <p>Add to <code>.claude/settings.json</code>. After each Write/Edit of a <code>.js</code> file, Claude Code runs the check and the output comes back to the agent.</p>
-<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c10">📋 Copy</button></div><pre id="c10"><code>{
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c12">📋 Copy</button></div><pre id="c12"><code>{
   &quot;hooks&quot;: {
     &quot;PostToolUse&quot;: [
       {

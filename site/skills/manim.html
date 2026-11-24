@@ -18,6 +18,7 @@
 <a class="" href="../skills/animated-video.html">📽️ Animated Video (design kit)</a>
 <h4>Web</h4>
 <a class="" href="../skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="" href="../skills/svg-animation.html">〰️ SVG Animation</a>
 <a class="" href="../skills/lottie.html">🫧 Lottie</a>
 <a class="" href="../skills/animejs.html">✨ Anime.js</a>
 <a class="" href="../skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
@@ -37,6 +38,7 @@
 <div class="links"><a class="btn" href="https://skills.sh/nousresearch/hermes-agent" target="_blank" rel="noopener">🔎 View on skills.sh</a>
 <a class="btn ghost" href="https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/creative/creative-manim-video" target="_blank" rel="noopener">📦 Source</a></div></header>
 
+<section class="output empty"><h2>🎁 Output <span class="badge">🟡 source only</span></h2><p>Scene written (outputs/manim/pythagoras.py) but not rendered: Manim needs system cairo/pango headers (sudo) that the build machine lacks. See outputs/manim/STATUS.md.</p></section>
 <section class="demo"><div class="d-eq">a² + b² = <span>c²</span></div></section>
 
 <section class="facts">
@@ -48,16 +50,20 @@
 
 <h2>⚡ 1. Install (database)</h2>
 <p>Pull the skill from the registry into <code>.claude/skills/</code> so the agent can discover it.</p>
-<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c26">📋 Copy</button></div><pre id="c26"><code>Bundled with Hermes Agent; copy SKILL.md into .claude/skills/manim-video/</code></pre></div>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c37">📋 Copy</button></div><pre id="c37"><code>pip install manim   # skill: NousResearch hermes-agent manim-video</code></pre></div>
 
 <h2>💬 2. Prompt it (execution)</h2>
 <p>Name the skill in your prompt so Claude loads its <code>SKILL.md</code> before acting.</p>
-<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c27">📋 Copy</button></div><pre id="c27"><code>Use the manim skill. Animate the Pythagorean theorem: draw a right triangle, grow squares on each side, then transform a²+b² into c².</code></pre></div>
+<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c38">📋 Copy</button></div><pre id="c38"><code>Use the manim skill. Animate the Pythagorean theorem: draw a right triangle, grow squares on each side, then transform a²+b² into c².</code></pre></div>
 
 <h2>🧠 What the agent does</h2><ol class="steps"><li>Agent writes a Python file with a Scene subclass and construct().</li><li>Uses self.play(Create(...), Transform(...)) for each beat.</li><li>Runs manim -pqh scene.py PythagorasScene.</li><li>Collects the MP4 from media/videos as the artifact.</li></ol>
 
+<h2>▶️ Run it again</h2>
+<p>Source: <a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/manim/pythagoras.py" target="_blank" rel="noopener"><code>outputs/manim/pythagoras.py</code></a></p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c39">📋 Copy</button></div><pre id="c39"><code>manim -pqh outputs/manim/pythagoras.py Pythagoras</code></pre></div>
+
 <h2>🧪 Core pattern (artifact)</h2>
-<div class="code"><div class="code-bar"><span>code</span><button data-copy="c28">📋 Copy</button></div><pre id="c28"><code>class Pythagoras(Scene):
+<div class="code"><div class="code-bar"><span>code</span><button data-copy="c40">📋 Copy</button></div><pre id="c40"><code>class Pythagoras(Scene):
     def construct(self):
         eq = MathTex(&#x27;a^2 + b^2 = c^2&#x27;)
         self.play(Write(eq))
@@ -65,7 +71,7 @@
 
 <h2>📄 CLAUDE.md snippet</h2>
 <p>Paste into your project's <code>CLAUDE.md</code> so every session knows when to use this skill.</p>
-<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c29">📋 Copy</button></div><pre id="c29"><code>## Animation skill: Manim
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c41">📋 Copy</button></div><pre id="c41"><code>## Animation skill: Manim
 - For equations, proofs, geometry, algorithm walk-throughs and teaching videos, load the `manim` skill before writing code.
 - Runtime: Python + Manim Community Edition. Expected artifact: MP4 / GIF explainer.
 - Animate transform and opacity only; always respect prefers-reduced-motion.
@@ -74,7 +80,7 @@
 
 <h2>🪝 Hook: check every edit</h2>
 <p>Add to <code>.claude/settings.json</code>. After each Write/Edit of a <code>.py</code> file, Claude Code runs the check and the output comes back to the agent.</p>
-<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c30">📋 Copy</button></div><pre id="c30"><code>{
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c42">📋 Copy</button></div><pre id="c42"><code>{
   &quot;hooks&quot;: {
     &quot;PostToolUse&quot;: [
       {

@@ -41,7 +41,7 @@ h2{margin-top:2.4em;font-size:1.45rem}
 .code-bar button{border:1px solid var(--line);background:#1f2340;color:var(--text);border-radius:8px;padding:4px 10px;cursor:pointer;font:inherit}
 .code-bar button:hover{border-color:var(--accent)}
 pre{margin:0;padding:14px;overflow-x:auto}
-pre code{background:none;padding:0;font-size:.85rem;white-space:pre}
+pre code{background:none;padding:0;font-size:.85rem;white-space:pre-wrap;word-break:break-word}
 
 .table{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:.92rem}
@@ -108,3 +108,20 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:v
   .menu-toggle{display:block;position:sticky;top:0;z-index:11;width:100%;padding:12px 16px;border:0;border-bottom:1px solid var(--line);background:#0a0c16;color:var(--text);font:inherit;text-align:left}
   main{padding:24px 16px}
 }
+
+/* ---------- outputs ---------- */
+.badge{font-size:.8rem;font-weight:600;padding:3px 10px;border-radius:999px;background:#1d2038;border:1px solid var(--line);vertical-align:middle;margin-left:8px}
+.output figure{margin:16px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0a0c16}
+.output video,.output iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}
+.output img.gif{display:block;margin:24px auto;width:256px;image-rendering:pixelated;border-radius:12px}
+.output figcaption{padding:12px 16px;color:#c9cbe0;font-size:.92rem;display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between}
+.output figcaption .links{display:flex;gap:14px}
+.output.empty p{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:14px;color:#c9cbe0}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.shot{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel);color:var(--text);text-decoration:none;transition:border-color .2s}
+.shot:hover{border-color:var(--accent)}
+.shot img,.shot .noshot{width:100%;aspect-ratio:16/10;object-fit:cover;background:#0a0c16}
+.shot .noshot{display:grid;place-items:center;font-size:2.4rem;color:var(--muted)}
+.shot .noshot small{font-size:.8rem}
+.shot span{padding:10px 12px;font-size:.92rem}
+.shot span small{display:block;color:var(--muted)}

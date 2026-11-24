@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skill Pipeline · gsap-web</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
+<style>
+  :root { --bg:#0d0f1a; --panel:#151829; --line:#2a2f52; --ink:#fff; --muted:#9a9db8; --a:#77ccff; --b:#cc77ff; }
+  * { box-sizing: border-box; margin: 0 }
+  body { background: var(--bg); color: var(--ink); font: 18px/1.5 system-ui, sans-serif; min-height: 100vh; display: grid; place-items: center; overflow: hidden }
+  .hero { width: min(1100px, 92vw); text-align: center }
+  .kicker { color: var(--muted); letter-spacing: .2em; text-transform: uppercase; font-size: 14px }
+  h1 { font-size: clamp(34px, 5.6vw, 76px); line-height: 1.02; letter-spacing: -.03em; margin: 14px 0 48px; font-weight: 900 }
+  h1 .grad, h1 .grad * { background: linear-gradient(90deg, var(--a), var(--b)); -webkit-background-clip: text; background-clip: text; color: transparent }
+  h1 .grad { white-space: nowrap }
+  .row { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px }
+  .card { position: relative; z-index: 1; background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 28px 20px }
+  .card .icon { font-size: 44px }
+  .card b { display: block; font-size: 22px; margin-top: 8px }
+  .card small { color: var(--muted) }
+  svg.wire { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; overflow: visible }
+  svg.wire path { fill: none; stroke: url(#g); stroke-width: 3; stroke-linecap: round }
+  .pulse { position: absolute; z-index: 2; width: 14px; height: 14px; border-radius: 50%; background: var(--a); box-shadow: 0 0 18px var(--a); top: 50%; left: 0; margin: -7px 0 0 -7px; opacity: 0 }
+  @media (max-width: 700px) { .row { grid-template-columns: 1fr; gap: 16px } svg.wire, .pulse { display: none } }
+</style>
+</head>
+<body>
+<main class="hero">
+  <p class="kicker">How a skill runs</p>
+  <h1 class="headline">Database → Artifact → <span class="grad">Execution</span></h1>
+  <div class="row">
+    <svg class="wire" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+      <defs><linearGradient id="g"><stop offset="0" stop-color="#77ccff"/><stop offset="1" stop-color="#cc77ff"/></linearGradient></defs>
+      <path id="wire" d="M150 100 C 330 20, 500 180, 500 100 S 680 20, 850 100"/>
+    </svg>
+    <div class="card"><div class="icon">🗂️</div><b>Database</b><small>SKILL.md on skills.sh</small></div>
+    <div class="card"><div class="icon">🎁</div><b>Artifact</b><small>HTML · MP4 · GIF</small></div>
+    <div class="card" id="exec"><div class="icon">🚀</div><b>Execution</b><small>agent renders & ships</small></div>
+    <div class="pulse"></div>
+  </div>
+</main>
+<script>
+  gsap.registerPlugin(SplitText, DrawSVGPlugin);
+  const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.6 } });
+  const mm = gsap.matchMedia();
+
+  mm.add({ full: "(prefers-reduced-motion: no-preference)", reduce: "(prefers-reduced-motion: reduce)" }, (ctx) => {
+    if (ctx.conditions.full) {
+      const split = SplitText.create(".headline", { type: "words,chars", mask: "chars" });
+      tl.from(".kicker", { y: 16, opacity: 0 })
+        .from(split.chars, { yPercent: 110, stagger: 0.025, ease: "back.out(1.6)" }, "-=0.3")
+        .from(".card", { y: 40, opacity: 0, stagger: 0.15, ease: "power4.out" }, "-=0.2")
+        .from("#wire", { drawSVG: "0%", duration: 1.1, ease: "power2.inOut" }, "-=0.4")
+        .fromTo(".pulse", { left: "15%", opacity: 0 }, { left: "85%", opacity: 1, duration: 1.4, ease: "power1.inOut" }, "-=0.2")
+        .to(".pulse", { opacity: 0, duration: 0.3 })
+        .to("#exec", { borderColor: "#cc77ff", boxShadow: "0 0 40px rgba(204,119,255,.35)", duration: 0.4 }, "<");
+    } else {
+      // accessible-animation tier 2: keep the transition, drop the displacement (short fades only)
+      tl.from([".kicker", ".headline", ".card"], { opacity: 0, duration: 0.2, stagger: 0.05, ease: "none" });
+    }
+  });
+
+  // gsap-web seek harness: ?t=N freezes the master timeline at N seconds
+  const t = new URLSearchParams(location.search).get("t");
+  if (t !== null) { tl.pause(); tl.seek(parseFloat(t)); }
+  window.__ready = true;
+  console.log("duration", tl.duration());
+</script>
+</body>
+</html>

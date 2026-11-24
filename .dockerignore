@@ -2,3 +2,10 @@
 .claude
 skills
 *.py
+remotion-video
+hyperframes-video
+outputs
+.pydeps
+.pydeps-manim
+.bin
+tools

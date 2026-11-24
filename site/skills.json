@@ -5,9 +5,9 @@
     "category": "Video",
     "runtime": "React + Remotion",
     "output": "MP4 / WebM video",
-    "source": "remotion-dev/skills (official) and community forks",
-    "url": "https://www.claudepluginhub.com/skills/remotion-dev-remotion-dev-skills/remotion",
-    "install": "npx skills add remotion-dev/skills",
+    "source": "remotion-dev/skills (official)",
+    "url": "https://github.com/remotion-dev/skills",
+    "install": "npx skills add remotion-dev/skills -s remotion-best-practices",
     "summary": "Teaches the agent to build videos as React components: compositions, sequences, useCurrentFrame(), interpolate() and spring(). Reference files cover Three.js/React Three Fiber scenes and Lottie embedding.",
     "when": "Programmatic, data-driven or templated video: product explainers, social clips, animated charts, captions.",
     "prompt": "Use the remotion skill. Create a 10-second 1080x1080 composition that animates our three Q3 metrics in with spring() and renders to out/q3.mp4.",
@@ -21,7 +21,20 @@
     "emoji": "🎬",
     "skills_sh": "https://skills.sh/remotion-dev/skills/remotion-best-practices",
     "hook_ext": "tsx",
-    "hook_cmd": "npx tsc --noEmit"
+    "hook_cmd": "npx tsc --noEmit",
+    "skill_dirs": [
+      "remotion-best-practices"
+    ],
+    "status": "rendered",
+    "outputs": [
+      {
+        "file": "remotion/skills-intro.mp4",
+        "poster": "remotion/skills-intro.png",
+        "caption": "SkillsIntro: 1080×1080, 4s, interpolate() + Easing.spring()"
+      }
+    ],
+    "source_code": "remotion-video/src/SkillsIntro.tsx",
+    "run": "cd remotion-video && npx remotion render SkillsIntro out/skills-intro.mp4"
   },
   {
     "slug": "gsap-web",
@@ -31,7 +44,7 @@
     "output": "Animated web page / component",
     "source": "iart-ai/web-animation-skills",
     "url": "https://github.com/iart-ai/web-animation-skills",
-    "install": "npx skills add iart-ai/web-animation-skills",
+    "install": "npx skills add iart-ai/web-animation-skills -s gsap-web",
     "summary": "Part of a web-motion pack covering GSAP timelines, ScrollTrigger, SplitText, SVG, Lottie, micro-interactions, page transitions and 60fps performance rules.",
     "when": "Scroll-driven storytelling, landing-page hero sequences, orchestrated UI choreography.",
     "prompt": "Use the gsap-web skill. Build a hero where the headline splits into characters and staggers in, then pin the section and scrub a 3-step timeline on scroll.",
@@ -43,9 +56,60 @@
     ],
     "code": "const tl = gsap.timeline({scrollTrigger:{trigger:'.hero',pin:true,scrub:1}});\ntl.from('.char',{y:40,opacity:0,stagger:0.03})\n  .to('.card',{x:200,rotate:8},'<0.2');",
     "emoji": "🌀",
-    "skills_sh": "https://skills.sh/iart-ai/web-animation-skills",
+    "skills_sh": "https://skills.sh/iart-ai/web-animation-skills/gsap-web",
     "hook_ext": "js",
-    "hook_cmd": "npx --yes prettier --check \"$f\""
+    "hook_cmd": "npx --yes prettier --check \"$f\"",
+    "skill_dirs": [
+      "gsap-web",
+      "accessible-animation"
+    ],
+    "status": "built",
+    "outputs": [
+      {
+        "file": "gsap-web/pipeline-hero.html",
+        "poster": "gsap-web/pipeline-hero.png",
+        "caption": "Pipeline hero: SplitText + DrawSVG on one master timeline, ?t=N seek harness, tiered reduced motion"
+      }
+    ],
+    "source_code": "outputs/gsap-web/pipeline-hero.html",
+    "run": "open outputs/gsap-web/pipeline-hero.html   # add ?t=2 to freeze a frame"
+  },
+  {
+    "slug": "svg-animation",
+    "name": "SVG Animation",
+    "category": "Web",
+    "emoji": "〰️",
+    "runtime": "SVG + CSS (stroke draw-on, offset-path)",
+    "output": "Animated SVG in a page",
+    "source": "iart-ai/web-animation-skills",
+    "url": "https://github.com/iart-ai/web-animation-skills",
+    "install": "npx skills add iart-ai/web-animation-skills -s svg-animation",
+    "skills_sh": "https://skills.sh/iart-ai/web-animation-skills/svg-animation",
+    "summary": "Stroke draw-on, path morphing and motion along a path, choosing between CSS, SMIL and GSAP for each job, with a seekable harness and a reduced-motion static end state.",
+    "when": "Line-art reveals, route maps, logo draw-ons, icons that move along a path.",
+    "prompt": "Use the svg-animation skill. Draw a route through three stops with stroke draw-on and a dot that rides the path, CSS only.",
+    "steps": [
+      "Agent picks the lightest driver (CSS here: pathLength=1 + dashoffset).",
+      "Uses offset-path for the rider so it follows the same curve.",
+      "Adds a ?t=N seek harness and screenshots start, middle and end.",
+      "Gates the motion behind prefers-reduced-motion and shows the final state instead."
+    ],
+    "code": ".route { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.4s forwards }\n.rider { offset-path: path(\"M80 260 C ...\"); animation: ride 2.4s forwards }\n@keyframes ride { to { offset-distance: 100% } }",
+    "hook_ext": "svg",
+    "hook_cmd": "grep -q viewBox \"$f\" || echo \"⚠️ $f: missing viewBox\" >&2",
+    "skill_dirs": [
+      "svg-animation"
+    ],
+    "status": "built",
+    "outputs": [
+      {
+        "file": "svg-animation/route.html",
+        "poster": "svg-animation/route.png",
+        "caption": "Route through Database → Artifact → Execution: stroke draw-on + offset-path rider, CSS only"
+      }
+    ],
+    "source_code": "outputs/svg-animation/route.html",
+    "run": "open outputs/svg-animation/route.html"
   },
   {
     "slug": "lottie",
@@ -55,7 +119,7 @@
     "output": "Vector animation JSON embedded in a page or video",
     "source": "iart-ai/web-animation-skills (lottie skill) and Remotion Lottie rules",
     "url": "https://github.com/iart-ai/web-animation-skills",
-    "install": "npx skills add iart-ai/web-animation-skills",
+    "install": "npx skills add iart-ai/web-animation-skills -s lottie-animation",
     "summary": "Guides the agent through loading, controlling and segment-playing After Effects Lottie files, plus wiring them to hover, scroll or state changes.",
     "when": "Designer-made icon animations, onboarding illustrations, loaders exported from After Effects.",
     "prompt": "Use the lottie skill. Embed success.json, play frames 0-60 on submit and loop 60-90 while the request is pending.",
@@ -67,9 +131,22 @@
     ],
     "code": "const anim = lottie.loadAnimation({container: el, path: 'success.json', autoplay: false});\nform.onsubmit = () => anim.playSegments([0, 60], true);",
     "emoji": "🫧",
-    "skills_sh": "https://skills.sh/iart-ai/web-animation-skills",
+    "skills_sh": "https://skills.sh/iart-ai/web-animation-skills/lottie-animation",
     "hook_ext": "json",
-    "hook_cmd": "python3 -m json.tool \"$f\" >/dev/null"
+    "hook_cmd": "python3 -m json.tool \"$f\" >/dev/null",
+    "skill_dirs": [
+      "lottie-animation"
+    ],
+    "status": "built",
+    "outputs": [
+      {
+        "file": "lottie/skill-installed.html",
+        "poster": "lottie/skill-installed.png",
+        "caption": "Hand-authored Lottie JSON (trim-path ring + check, pop, halo) played with lottie-web"
+      }
+    ],
+    "source_code": "outputs/lottie/skill-installed.json",
+    "run": "python3 -m http.server -d outputs  # then open /lottie/skill-installed.html"
   },
   {
     "slug": "hyperframes",
@@ -78,8 +155,8 @@
     "runtime": "HTML + GSAP (adapters: Lottie, Three.js, Anime.js, CSS, WAAPI, TypeGPU)",
     "output": "MP4 rendered from HTML",
     "source": "heygen-com/hyperframes",
-    "url": "https://mcpservers.org/agent-skills/heygen-com/hyperframes",
-    "install": "npx skills add heygen-com/hyperframes",
+    "url": "https://github.com/heygen-com/hyperframes",
+    "install": "npx skills add heygen-com/hyperframes -s hyperframes -s hyperframes-cli",
     "summary": "Video as HTML: CSS controls the look, a GSAP timeline controls time, and the HyperFrames renderer captures it frame by frame into a video. Seven runtime adapters let one scene mix GSAP, Lottie, Three.js and more.",
     "when": "Agent-authored marketing videos and title sequences when you'd rather write HTML than React.",
     "prompt": "Use the hyperframes skill. Make a 6s 16:9 title card: logo draws on, tagline types in, then everything wipes to black. Render to title.mp4.",
@@ -91,9 +168,23 @@
     ],
     "code": "<div class=\"clip\" data-start=\"0\" data-duration=\"6\">\n  <h1 id=\"tag\">Ship faster</h1>\n</div>\n<script>window.__timeline = gsap.timeline({paused:true})\n  .from('#tag',{y:60,opacity:0,duration:0.8});</script>",
     "emoji": "🎞️",
-    "skills_sh": "https://www.skills.sh/nousresearch/hermes-agent/hyperframes",
+    "skills_sh": "https://skills.sh/heygen-com/hyperframes/hyperframes",
     "hook_ext": "html",
-    "hook_cmd": "npx --yes prettier --check \"$f\""
+    "hook_cmd": "npx --yes prettier --check \"$f\"",
+    "skill_dirs": [
+      "hyperframes",
+      "hyperframes-cli"
+    ],
+    "status": "rendered",
+    "outputs": [
+      {
+        "file": "hyperframes/title-card.mp4",
+        "poster": "hyperframes/title-card.png",
+        "caption": "6s 1920×1080 title card, passes `hyperframes check`, rendered by the HyperFrames CLI"
+      }
+    ],
+    "source_code": "hyperframes-video/compositions/title.html",
+    "run": "cd hyperframes-video && node ../.claude/skills/hyperframes/scripts/plugin-cli.mjs render -o out.mp4"
   },
   {
     "slug": "gsap-remotion",
@@ -102,8 +193,8 @@
     "runtime": "Remotion + GSAP",
     "output": "MP4 video",
     "source": "notedit/happy-skills (gsap-animation)",
-    "url": "https://skills.sh/notedit/happy-skills/gsap-animation",
-    "install": "npx skills add notedit/happy-skills",
+    "url": "https://github.com/notedit/happy-skills",
+    "install": "npx skills add notedit/happy-skills -s gsap-animation",
     "summary": "Bridges GSAP into Remotion compositions by seeking a paused timeline to the current frame, so you get GSAP easing, morphing and text effects beyond interpolate() and spring().",
     "when": "You already use Remotion but need GSAP-level easing, MorphSVG or SplitText in video.",
     "prompt": "Use the gsap-animation skill. In my Remotion composition, drive a paused GSAP timeline from useCurrentFrame() to morph the logo outline into a circle.",
@@ -117,7 +208,20 @@
     "emoji": "🧩",
     "skills_sh": "https://skills.sh/notedit/happy-skills/gsap-animation",
     "hook_ext": "tsx",
-    "hook_cmd": "npx tsc --noEmit"
+    "hook_cmd": "npx tsc --noEmit",
+    "skill_dirs": [
+      "gsap-animation"
+    ],
+    "status": "rendered",
+    "outputs": [
+      {
+        "file": "gsap-remotion/gsap-title.mp4",
+        "poster": "gsap-remotion/gsap-title.png",
+        "caption": "GsapTitle: SplitText chars + DrawSVG ring, paused GSAP timeline seeked to frame / fps"
+      }
+    ],
+    "source_code": "remotion-video/src/GsapTitle.tsx",
+    "run": "cd remotion-video && npx remotion render GsapTitle out/gsap-title.mp4"
   },
   {
     "slug": "manim",
@@ -127,7 +231,7 @@
     "output": "MP4 / GIF explainer",
     "source": "NousResearch hermes-agent (manim-video), iart-ai manim pack",
     "url": "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/creative/creative-manim-video",
-    "install": "Bundled with Hermes Agent; copy SKILL.md into .claude/skills/manim-video/",
+    "install": "pip install manim   # skill: NousResearch hermes-agent manim-video",
     "summary": "3Blue1Brown-style mathematical and algorithm animations: Scenes, MathTex, Transform, and camera moves, rendered with the manim CLI.",
     "when": "Equations, proofs, geometry, algorithm walk-throughs and teaching videos.",
     "prompt": "Use the manim skill. Animate the Pythagorean theorem: draw a right triangle, grow squares on each side, then transform a²+b² into c².",
@@ -141,7 +245,13 @@
     "emoji": "📐",
     "skills_sh": "https://skills.sh/nousresearch/hermes-agent",
     "hook_ext": "py",
-    "hook_cmd": "manim -ql --dry_run \"$f\""
+    "hook_cmd": "manim -ql --dry_run \"$f\"",
+    "skill_dirs": [],
+    "status": "source only",
+    "outputs": [],
+    "note": "Scene written (outputs/manim/pythagoras.py) but not rendered: Manim needs system cairo/pango headers (sudo) that the build machine lacks. See outputs/manim/STATUS.md.",
+    "source_code": "outputs/manim/pythagoras.py",
+    "run": "manim -pqh outputs/manim/pythagoras.py Pythagoras"
   },
   {
     "slug": "animejs",
@@ -151,7 +261,7 @@
     "output": "Animated web page / SVG",
     "source": "Community skill listed on skills.sh (animejs)",
     "url": "https://www.skills.sh/avabillions2040/claudedesignskills-02-02-2026/animejs",
-    "install": "npx skills add avabillions2040/claudedesignskills-02-02-2026",
+    "install": "npx skills add avabillions2040/claudedesignskills-02-02-2026 -s animejs",
     "summary": "Lightweight JS animation: staggered grids, SVG line drawing, path following and timelines with a small footprint.",
     "when": "Small pages where GSAP is overkill; SVG stroke drawing; grid stagger effects.",
     "prompt": "Use the animejs skill. Make a 10x10 dot grid that ripples out from wherever I click using stagger({grid, from}).",
@@ -163,9 +273,22 @@
     ],
     "code": "animate('.dot', {\n  scale: [{to: 1.6}, {to: 1}],\n  delay: stagger(60, {grid: [10, 10], from: index})\n});",
     "emoji": "✨",
-    "skills_sh": "https://www.skills.sh/avabillions2040/claudedesignskills-02-02-2026/animejs",
+    "skills_sh": "https://skills.sh/avabillions2040/claudedesignskills-02-02-2026/animejs",
     "hook_ext": "js",
-    "hook_cmd": "npx --yes prettier --check \"$f\""
+    "hook_cmd": "npx --yes prettier --check \"$f\"",
+    "skill_dirs": [
+      "animejs"
+    ],
+    "status": "built",
+    "outputs": [
+      {
+        "file": "animejs/dot-ripple.html",
+        "poster": "animejs/dot-ripple.png",
+        "caption": "SVG line drawing + 13×13 grid stagger from center; click a dot to ripple from it"
+      }
+    ],
+    "source_code": "outputs/animejs/dot-ripple.html",
+    "run": "open outputs/animejs/dot-ripple.html"
   },
   {
     "slug": "threejs-webgl",
@@ -173,9 +296,9 @@
     "category": "3D",
     "runtime": "Three.js, React Three Fiber, shaders",
     "output": "Interactive 3D scene",
-    "source": "iart-ai webgl-animation-skills, threejs-webgl on skills.sh",
-    "url": "https://awesome.ecosyste.ms/projects/github.com%2Fiart-ai%2Fmotion-skills",
-    "install": "npx skills add iart-ai/webgl-animation-skills",
+    "source": "iart-ai/webgl-animation-skills",
+    "url": "https://github.com/iart-ai/webgl-animation-skills",
+    "install": "npx skills add iart-ai/webgl-animation-skills -s threejs-animation",
     "summary": "3D motion: scene/camera/renderer setup, animation loops, GLTF animation mixers, shader uniforms over time and performance budgets.",
     "when": "3D product spins, particle hero sections, shader backgrounds.",
     "prompt": "Use the threejs skill. Build a full-screen particle field that slowly orbits and reacts to the mouse, capped at 60fps on mobile.",
@@ -187,9 +310,22 @@
     ],
     "code": "renderer.setAnimationLoop((t) => {\n  points.rotation.y = t * 0.0001;\n  material.uniforms.uTime.value = t / 1000;\n  renderer.render(scene, camera);\n});",
     "emoji": "🧊",
-    "skills_sh": "https://skills.sh/iart-ai/webgl-animation-skills",
+    "skills_sh": "https://skills.sh/iart-ai/webgl-animation-skills/threejs-animation",
     "hook_ext": "js",
-    "hook_cmd": "npx --yes prettier --check \"$f\""
+    "hook_cmd": "npx --yes prettier --check \"$f\"",
+    "skill_dirs": [
+      "threejs-animation"
+    ],
+    "status": "built",
+    "outputs": [
+      {
+        "file": "threejs-webgl/particle-orbit.html",
+        "poster": "threejs-webgl/particle-orbit.png",
+        "caption": "12,000 seeded particles on a torus knot, pure frame(t) render, mouse parallax"
+      }
+    ],
+    "source_code": "outputs/threejs-webgl/particle-orbit.html",
+    "run": "open outputs/threejs-webgl/particle-orbit.html"
   },
   {
     "slug": "css-motion",
@@ -198,8 +334,8 @@
     "runtime": "CSS keyframes, transitions, WAAPI, View Transitions",
     "output": "Animated UI with zero dependencies",
     "source": "Anthropic frontend-design skill (motion guidance) + web-animation-skills",
-    "url": "https://github.com/anthropics/claude-plugins-official",
-    "install": "/plugin install frontend-design@claude-plugins-official",
+    "url": "https://github.com/anthropics/skills",
+    "install": "npx skills add anthropics/skills -s frontend-design",
     "summary": "Dependency-free motion. The frontend-design skill's rule: one orchestrated moment beats scattered effects, motion should answer a person's action, and reduced motion must be respected.",
     "when": "Product UI, state changes, page transitions, anything that should ship with no JS library.",
     "prompt": "Use the frontend-design skill. Add a single orchestrated page-load sequence to the hero and a View Transition between list and detail views. Respect reduced motion.",
@@ -211,9 +347,23 @@
     ],
     "code": "@keyframes rise { from { transform: translateY(24px); opacity: 0 } }\n@media (prefers-reduced-motion: no-preference) {\n  .hero h1 { animation: rise .6s cubic-bezier(.2,.7,.2,1) both }\n}",
     "emoji": "💅",
-    "skills_sh": "https://skills.sh/anthropics/skills",
+    "skills_sh": "https://skills.sh/anthropics/skills/frontend-design",
     "hook_ext": "css",
-    "hook_cmd": "grep -q \"prefers-reduced-motion\" \"$f\" || echo \"⚠️ add a prefers-reduced-motion guard\" >&2"
+    "hook_cmd": "grep -q \"prefers-reduced-motion\" \"$f\" || echo \"⚠️ add a prefers-reduced-motion guard\" >&2",
+    "skill_dirs": [
+      "frontend-design",
+      "accessible-animation"
+    ],
+    "status": "built",
+    "outputs": [
+      {
+        "file": "css-motion/one-moment.html",
+        "poster": "css-motion/one-moment.png",
+        "caption": "One orchestrated page-load moment in pure CSS; reduced motion falls back to a 200ms fade"
+      }
+    ],
+    "source_code": "outputs/css-motion/one-moment.html",
+    "run": "open outputs/css-motion/one-moment.html"
   },
   {
     "slug": "algorithmic-art",
@@ -223,7 +373,7 @@
     "output": "Interactive generative-art HTML",
     "source": "anthropics/skills (algorithmic-art)",
     "url": "https://github.com/anthropics/skills",
-    "install": "/plugin marketplace add anthropics/skills",
+    "install": "npx skills add anthropics/skills -s algorithmic-art",
     "summary": "Anthropic's skill for generative art: the agent writes an algorithmic philosophy, then expresses it as a seeded p5.js sketch with flow fields, particles and noise, plus parameter controls.",
     "when": "Generative backgrounds, art pieces, seeded variations you can reproduce.",
     "prompt": "Use the algorithmic-art skill. Create a flow-field piece inspired by wind over water, seeded, with sliders for particle count and noise scale.",
@@ -237,7 +387,20 @@
     "emoji": "🎨",
     "skills_sh": "https://skills.sh/anthropics/skills/algorithmic-art",
     "hook_ext": "js",
-    "hook_cmd": "grep -q \"randomSeed\" \"$f\" || echo \"⚠️ sketch is not seeded\" >&2"
+    "hook_cmd": "grep -q \"randomSeed\" \"$f\" || echo \"⚠️ sketch is not seeded\" >&2",
+    "skill_dirs": [
+      "algorithmic-art"
+    ],
+    "status": "built",
+    "outputs": [
+      {
+        "file": "algorithmic-art/tidal-memory.html",
+        "poster": "algorithmic-art/tidal-memory.png",
+        "caption": "“Tidal Memory”: seeded p5.js flow field built from the skill's viewer.html template, with philosophy.md"
+      }
+    ],
+    "source_code": "outputs/algorithmic-art/tidal-memory.html",
+    "run": "open outputs/algorithmic-art/tidal-memory.html"
   },
   {
     "slug": "slack-gif-creator",
@@ -247,7 +410,7 @@
     "output": "Animated GIF sized for Slack",
     "source": "anthropics/skills (slack-gif-creator)",
     "url": "https://github.com/anthropics/skills",
-    "install": "/plugin marketplace add anthropics/skills",
+    "install": "npx skills add anthropics/skills -s slack-gif-creator",
     "summary": "Builds animated GIFs frame by frame with easing helpers and validates them against Slack's size, dimension and frame-count limits for emoji and message GIFs.",
     "when": "Custom reaction emoji, celebratory GIFs, tiny looping animations for chat.",
     "prompt": "Use the slack-gif-creator skill. Make a 128x128 emoji GIF of a rocket that wobbles and launches, under Slack's emoji size limit.",
@@ -261,7 +424,19 @@
     "emoji": "🚀",
     "skills_sh": "https://skills.sh/anthropics/skills/slack-gif-creator",
     "hook_ext": "py",
-    "hook_cmd": "python3 \"$f\""
+    "hook_cmd": "python3 \"$f\"",
+    "skill_dirs": [
+      "slack-gif-creator"
+    ],
+    "status": "rendered",
+    "outputs": [
+      {
+        "file": "slack-gif-creator/rocket-emoji.gif",
+        "caption": "128×128 rocket emoji, 25 KB, passes the skill's validate_gif() Slack check"
+      }
+    ],
+    "source_code": "outputs/slack-gif-creator/make_rocket.py",
+    "run": "PYTHONPATH=.pydeps python3 outputs/slack-gif-creator/make_rocket.py"
   },
   {
     "slug": "animated-video",
@@ -270,8 +445,8 @@
     "runtime": "HTML/CSS scenes captured to video",
     "output": "Short animated video",
     "source": "bluzir/claude-code-design (animated-video)",
-    "url": "https://www.skills.sh/bluzir/claude-code-design/animated-video",
-    "install": "npx skills add bluzir/claude-code-design",
+    "url": "https://github.com/bluzir/claude-code-design",
+    "install": "npx skills add bluzir/claude-code-design -s animated-video",
     "summary": "A design-led workflow for short animated videos: storyboard first, then scenes, motion, and an export step.",
     "when": "Promo loops and feature announcements where the storyboard matters more than code.",
     "prompt": "Use the animated-video skill. Storyboard a 15s feature announcement in 4 scenes, then build and export it.",
@@ -283,9 +458,22 @@
     ],
     "code": "scenes:\n  - hook: 2s   # big claim, kinetic type\n  - problem: 4s\n  - product: 6s # UI zoom\n  - cta: 3s",
     "emoji": "📽️",
-    "skills_sh": "https://www.skills.sh/bluzir/claude-code-design/animated-video",
+    "skills_sh": "https://skills.sh/bluzir/claude-code-design/animated-video",
     "hook_ext": "html",
-    "hook_cmd": "npx --yes prettier --check \"$f\""
+    "hook_cmd": "npx --yes prettier --check \"$f\"",
+    "skill_dirs": [
+      "animated-video"
+    ],
+    "status": "rendered",
+    "outputs": [
+      {
+        "file": "animated-video/storyboard.mp4",
+        "poster": "animated-video/storyboard.png",
+        "caption": "Path B: 4-scene storyboard (hook → problem → product → CTA) with TransitionSeries, 10.5s"
+      }
+    ],
+    "source_code": "remotion-video/src/Storyboard.tsx",
+    "run": "cd remotion-video && npx remotion render Storyboard out/storyboard.mp4"
   },
   {
     "slug": "figma-motion",
@@ -309,6 +497,12 @@
     "emoji": "🎛️",
     "skills_sh": "https://skills.sh/?q=figma",
     "hook_ext": "css",
-    "hook_cmd": "grep -nE \"transition|animation\" \"$f\""
+    "hook_cmd": "grep -nE \"transition|animation\" \"$f\"",
+    "skill_dirs": [],
+    "status": "not run",
+    "outputs": [],
+    "note": "Needs a Figma file to read motion from; no Figma file was provided, so this one has no output yet.",
+    "source_code": "",
+    "run": "Give Claude a figma.com frame URL and ask it to reproduce the transition"
   }
 ]

@@ -18,6 +18,7 @@
 <a class="" href="../skills/animated-video.html">📽️ Animated Video (design kit)</a>
 <h4>Web</h4>
 <a class="" href="../skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="" href="../skills/svg-animation.html">〰️ SVG Animation</a>
 <a class="" href="../skills/lottie.html">🫧 Lottie</a>
 <a class="" href="../skills/animejs.html">✨ Anime.js</a>
 <a class="" href="../skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
@@ -34,10 +35,13 @@
 <main>
 <header class="hero small"><p class="kicker">🎞️ Video skill</p>
 <h1>HyperFrames</h1><p class="lede">Video as HTML: CSS controls the look, a GSAP timeline controls time, and the HyperFrames renderer captures it frame by frame into a video. Seven runtime adapters let one scene mix GSAP, Lottie, Three.js and more.</p>
-<div class="links"><a class="btn" href="https://www.skills.sh/nousresearch/hermes-agent/hyperframes" target="_blank" rel="noopener">🔎 View on skills.sh</a>
-<a class="btn ghost" href="https://mcpservers.org/agent-skills/heygen-com/hyperframes" target="_blank" rel="noopener">📦 Source</a></div></header>
+<div class="links"><a class="btn" href="https://skills.sh/heygen-com/hyperframes/hyperframes" target="_blank" rel="noopener">🔎 View on skills.sh</a>
+<a class="btn ghost" href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener">📦 Source</a></div></header>
 
-<section class="demo"><div class="d-title"><b>Ship faster</b><i></i></div></section>
+<section class="output"><h2>🎁 Output made with this skill <span class="badge">✅ rendered</span></h2><figure><video src="../outputs/hyperframes/title-card.mp4" poster="../outputs/hyperframes/title-card.png" controls muted loop playsinline preload="metadata"></video><figcaption>6s 1920×1080 title card, passes `hyperframes check`, rendered by the HyperFrames CLI
+<span class="links"><a href="../outputs/hyperframes/title-card.mp4" target="_blank" rel="noopener">Open full ↗</a>
+<a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/hyperframes/title-card.mp4" target="_blank" rel="noopener">GitHub ↗</a></span></figcaption></figure></section>
+
 
 <section class="facts">
 <div><span>⚙️ Runtime</span>HTML + GSAP (adapters: Lottie, Three.js, Anime.js, CSS, WAAPI, TypeGPU)</div>
@@ -48,16 +52,20 @@
 
 <h2>⚡ 1. Install (database)</h2>
 <p>Pull the skill from the registry into <code>.claude/skills/</code> so the agent can discover it.</p>
-<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c16">📋 Copy</button></div><pre id="c16"><code>npx skills add heygen-com/hyperframes</code></pre></div>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c25">📋 Copy</button></div><pre id="c25"><code>npx skills add heygen-com/hyperframes -s hyperframes -s hyperframes-cli</code></pre></div>
 
 <h2>💬 2. Prompt it (execution)</h2>
 <p>Name the skill in your prompt so Claude loads its <code>SKILL.md</code> before acting.</p>
-<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c17">📋 Copy</button></div><pre id="c17"><code>Use the hyperframes skill. Make a 6s 16:9 title card: logo draws on, tagline types in, then everything wipes to black. Render to title.mp4.</code></pre></div>
+<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c26">📋 Copy</button></div><pre id="c26"><code>Use the hyperframes skill. Make a 6s 16:9 title card: logo draws on, tagline types in, then everything wipes to black. Render to title.mp4.</code></pre></div>
 
 <h2>🧠 What the agent does</h2><ol class="steps"><li>Agent reads the hyperframes skill first (it routes to sub-skills).</li><li>Writes an HTML composition with data-* timing attributes and a paused GSAP timeline.</li><li>Previews in the browser, scrubbing the timeline.</li><li>Renders with the HyperFrames CLI into an MP4 artifact.</li></ol>
 
+<h2>▶️ Run it again</h2>
+<p>Source: <a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/hyperframes-video/compositions/title.html" target="_blank" rel="noopener"><code>hyperframes-video/compositions/title.html</code></a> · installed skill: <a href="https://github.com/rifaterdemsahin/animate-skills/tree/main/.claude/skills/hyperframes" target="_blank" rel="noopener"><code>.claude/skills/hyperframes</code></a>, <a href="https://github.com/rifaterdemsahin/animate-skills/tree/main/.claude/skills/hyperframes-cli" target="_blank" rel="noopener"><code>.claude/skills/hyperframes-cli</code></a></p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c27">📋 Copy</button></div><pre id="c27"><code>cd hyperframes-video &amp;&amp; node ../.claude/skills/hyperframes/scripts/plugin-cli.mjs render -o out.mp4</code></pre></div>
+
 <h2>🧪 Core pattern (artifact)</h2>
-<div class="code"><div class="code-bar"><span>code</span><button data-copy="c18">📋 Copy</button></div><pre id="c18"><code>&lt;div class=&quot;clip&quot; data-start=&quot;0&quot; data-duration=&quot;6&quot;&gt;
+<div class="code"><div class="code-bar"><span>code</span><button data-copy="c28">📋 Copy</button></div><pre id="c28"><code>&lt;div class=&quot;clip&quot; data-start=&quot;0&quot; data-duration=&quot;6&quot;&gt;
   &lt;h1 id=&quot;tag&quot;&gt;Ship faster&lt;/h1&gt;
 &lt;/div&gt;
 &lt;script&gt;window.__timeline = gsap.timeline({paused:true})
@@ -65,7 +73,7 @@
 
 <h2>📄 CLAUDE.md snippet</h2>
 <p>Paste into your project's <code>CLAUDE.md</code> so every session knows when to use this skill.</p>
-<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c19">📋 Copy</button></div><pre id="c19"><code>## Animation skill: HyperFrames
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c29">📋 Copy</button></div><pre id="c29"><code>## Animation skill: HyperFrames
 - For agent-authored marketing videos and title sequences when you&#x27;d rather write html than react, load the `hyperframes` skill before writing code.
 - Runtime: HTML + GSAP (adapters: Lottie, Three.js, Anime.js, CSS, WAAPI, TypeGPU). Expected artifact: MP4 rendered from HTML.
 - Animate transform and opacity only; always respect prefers-reduced-motion.
@@ -74,7 +82,7 @@
 
 <h2>🪝 Hook: check every edit</h2>
 <p>Add to <code>.claude/settings.json</code>. After each Write/Edit of a <code>.html</code> file, Claude Code runs the check and the output comes back to the agent.</p>
-<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c20">📋 Copy</button></div><pre id="c20"><code>{
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c30">📋 Copy</button></div><pre id="c30"><code>{
   &quot;hooks&quot;: {
     &quot;PostToolUse&quot;: [
       {

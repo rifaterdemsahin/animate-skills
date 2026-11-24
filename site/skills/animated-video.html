@@ -18,6 +18,7 @@
 <a class="on" href="../skills/animated-video.html">📽️ Animated Video (design kit)</a>
 <h4>Web</h4>
 <a class="" href="../skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="" href="../skills/svg-animation.html">〰️ SVG Animation</a>
 <a class="" href="../skills/lottie.html">🫧 Lottie</a>
 <a class="" href="../skills/animejs.html">✨ Anime.js</a>
 <a class="" href="../skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
@@ -34,10 +35,13 @@
 <main>
 <header class="hero small"><p class="kicker">📽️ Video skill</p>
 <h1>Animated Video (design kit)</h1><p class="lede">A design-led workflow for short animated videos: storyboard first, then scenes, motion, and an export step.</p>
-<div class="links"><a class="btn" href="https://www.skills.sh/bluzir/claude-code-design/animated-video" target="_blank" rel="noopener">🔎 View on skills.sh</a>
-<a class="btn ghost" href="https://www.skills.sh/bluzir/claude-code-design/animated-video" target="_blank" rel="noopener">📦 Source</a></div></header>
+<div class="links"><a class="btn" href="https://skills.sh/bluzir/claude-code-design/animated-video" target="_blank" rel="noopener">🔎 View on skills.sh</a>
+<a class="btn ghost" href="https://github.com/bluzir/claude-code-design" target="_blank" rel="noopener">📦 Source</a></div></header>
 
-<section class="demo"><div class="d-board"><i>Hook</i><i>Problem</i><i>Product</i><i>CTA</i></div></section>
+<section class="output"><h2>🎁 Output made with this skill <span class="badge">✅ rendered</span></h2><figure><video src="../outputs/animated-video/storyboard.mp4" poster="../outputs/animated-video/storyboard.png" controls muted loop playsinline preload="metadata"></video><figcaption>Path B: 4-scene storyboard (hook → problem → product → CTA) with TransitionSeries, 10.5s
+<span class="links"><a href="../outputs/animated-video/storyboard.mp4" target="_blank" rel="noopener">Open full ↗</a>
+<a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/animated-video/storyboard.mp4" target="_blank" rel="noopener">GitHub ↗</a></span></figcaption></figure></section>
+
 
 <section class="facts">
 <div><span>⚙️ Runtime</span>HTML/CSS scenes captured to video</div>
@@ -48,16 +52,20 @@
 
 <h2>⚡ 1. Install (database)</h2>
 <p>Pull the skill from the registry into <code>.claude/skills/</code> so the agent can discover it.</p>
-<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c56">📋 Copy</button></div><pre id="c56"><code>npx skills add bluzir/claude-code-design</code></pre></div>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c73">📋 Copy</button></div><pre id="c73"><code>npx skills add bluzir/claude-code-design -s animated-video</code></pre></div>
 
 <h2>💬 2. Prompt it (execution)</h2>
 <p>Name the skill in your prompt so Claude loads its <code>SKILL.md</code> before acting.</p>
-<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c57">📋 Copy</button></div><pre id="c57"><code>Use the animated-video skill. Storyboard a 15s feature announcement in 4 scenes, then build and export it.</code></pre></div>
+<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c74">📋 Copy</button></div><pre id="c74"><code>Use the animated-video skill. Storyboard a 15s feature announcement in 4 scenes, then build and export it.</code></pre></div>
 
 <h2>🧠 What the agent does</h2><ol class="steps"><li>Agent writes a storyboard with scene durations.</li><li>Builds each scene with consistent type and color tokens.</li><li>Adds transitions between scenes.</li><li>Exports the video artifact.</li></ol>
 
+<h2>▶️ Run it again</h2>
+<p>Source: <a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/remotion-video/src/Storyboard.tsx" target="_blank" rel="noopener"><code>remotion-video/src/Storyboard.tsx</code></a> · installed skill: <a href="https://github.com/rifaterdemsahin/animate-skills/tree/main/.claude/skills/animated-video" target="_blank" rel="noopener"><code>.claude/skills/animated-video</code></a></p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c75">📋 Copy</button></div><pre id="c75"><code>cd remotion-video &amp;&amp; npx remotion render Storyboard out/storyboard.mp4</code></pre></div>
+
 <h2>🧪 Core pattern (artifact)</h2>
-<div class="code"><div class="code-bar"><span>code</span><button data-copy="c58">📋 Copy</button></div><pre id="c58"><code>scenes:
+<div class="code"><div class="code-bar"><span>code</span><button data-copy="c76">📋 Copy</button></div><pre id="c76"><code>scenes:
   - hook: 2s   # big claim, kinetic type
   - problem: 4s
   - product: 6s # UI zoom
@@ -65,7 +73,7 @@
 
 <h2>📄 CLAUDE.md snippet</h2>
 <p>Paste into your project's <code>CLAUDE.md</code> so every session knows when to use this skill.</p>
-<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c59">📋 Copy</button></div><pre id="c59"><code>## Animation skill: Animated Video (design kit)
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c77">📋 Copy</button></div><pre id="c77"><code>## Animation skill: Animated Video (design kit)
 - For promo loops and feature announcements where the storyboard matters more than code, load the `animated-video` skill before writing code.
 - Runtime: HTML/CSS scenes captured to video. Expected artifact: Short animated video.
 - Animate transform and opacity only; always respect prefers-reduced-motion.
@@ -74,7 +82,7 @@
 
 <h2>🪝 Hook: check every edit</h2>
 <p>Add to <code>.claude/settings.json</code>. After each Write/Edit of a <code>.html</code> file, Claude Code runs the check and the output comes back to the agent.</p>
-<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c60">📋 Copy</button></div><pre id="c60"><code>{
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c78">📋 Copy</button></div><pre id="c78"><code>{
   &quot;hooks&quot;: {
     &quot;PostToolUse&quot;: [
       {

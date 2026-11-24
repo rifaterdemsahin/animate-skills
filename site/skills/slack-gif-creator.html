@@ -18,6 +18,7 @@
 <a class="" href="../skills/animated-video.html">📽️ Animated Video (design kit)</a>
 <h4>Web</h4>
 <a class="" href="../skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="" href="../skills/svg-animation.html">〰️ SVG Animation</a>
 <a class="" href="../skills/lottie.html">🫧 Lottie</a>
 <a class="" href="../skills/animejs.html">✨ Anime.js</a>
 <a class="" href="../skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
@@ -37,7 +38,10 @@
 <div class="links"><a class="btn" href="https://skills.sh/anthropics/skills/slack-gif-creator" target="_blank" rel="noopener">🔎 View on skills.sh</a>
 <a class="btn ghost" href="https://github.com/anthropics/skills" target="_blank" rel="noopener">📦 Source</a></div></header>
 
-<section class="demo"><div class="d-rocket">🚀</div></section>
+<section class="output"><h2>🎁 Output made with this skill <span class="badge">✅ rendered</span></h2><figure><img class="gif" src="../outputs/slack-gif-creator/rocket-emoji.gif" alt="128×128 rocket emoji, 25 KB, passes the skill&#x27;s validate_gif() Slack check"><figcaption>128×128 rocket emoji, 25 KB, passes the skill&#x27;s validate_gif() Slack check
+<span class="links"><a href="../outputs/slack-gif-creator/rocket-emoji.gif" target="_blank" rel="noopener">Open full ↗</a>
+<a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/slack-gif-creator/rocket-emoji.gif" target="_blank" rel="noopener">GitHub ↗</a></span></figcaption></figure></section>
+
 
 <section class="facts">
 <div><span>⚙️ Runtime</span>Python + Pillow</div>
@@ -48,22 +52,26 @@
 
 <h2>⚡ 1. Install (database)</h2>
 <p>Pull the skill from the registry into <code>.claude/skills/</code> so the agent can discover it.</p>
-<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c51">📋 Copy</button></div><pre id="c51"><code>/plugin marketplace add anthropics/skills</code></pre></div>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c67">📋 Copy</button></div><pre id="c67"><code>npx skills add anthropics/skills -s slack-gif-creator</code></pre></div>
 
 <h2>💬 2. Prompt it (execution)</h2>
 <p>Name the skill in your prompt so Claude loads its <code>SKILL.md</code> before acting.</p>
-<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c52">📋 Copy</button></div><pre id="c52"><code>Use the slack-gif-creator skill. Make a 128x128 emoji GIF of a rocket that wobbles and launches, under Slack&#x27;s emoji size limit.</code></pre></div>
+<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c68">📋 Copy</button></div><pre id="c68"><code>Use the slack-gif-creator skill. Make a 128x128 emoji GIF of a rocket that wobbles and launches, under Slack&#x27;s emoji size limit.</code></pre></div>
 
 <h2>🧠 What the agent does</h2><ol class="steps"><li>Agent draws frames with Pillow using easing functions.</li><li>Assembles them into a GIF with loop and duration settings.</li><li>Runs the skill&#x27;s validator for Slack constraints.</li><li>Outputs a .gif artifact.</li></ol>
 
+<h2>▶️ Run it again</h2>
+<p>Source: <a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/slack-gif-creator/make_rocket.py" target="_blank" rel="noopener"><code>outputs/slack-gif-creator/make_rocket.py</code></a> · installed skill: <a href="https://github.com/rifaterdemsahin/animate-skills/tree/main/.claude/skills/slack-gif-creator" target="_blank" rel="noopener"><code>.claude/skills/slack-gif-creator</code></a></p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c69">📋 Copy</button></div><pre id="c69"><code>PYTHONPATH=.pydeps python3 outputs/slack-gif-creator/make_rocket.py</code></pre></div>
+
 <h2>🧪 Core pattern (artifact)</h2>
-<div class="code"><div class="code-bar"><span>code</span><button data-copy="c53">📋 Copy</button></div><pre id="c53"><code>frames = [draw_rocket(y=ease_out(t/30) * -80) for t in range(30)]
+<div class="code"><div class="code-bar"><span>code</span><button data-copy="c70">📋 Copy</button></div><pre id="c70"><code>frames = [draw_rocket(y=ease_out(t/30) * -80) for t in range(30)]
 frames[0].save(&#x27;rocket.gif&#x27;, save_all=True,
                append_images=frames[1:], duration=33, loop=0)</code></pre></div>
 
 <h2>📄 CLAUDE.md snippet</h2>
 <p>Paste into your project's <code>CLAUDE.md</code> so every session knows when to use this skill.</p>
-<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c54">📋 Copy</button></div><pre id="c54"><code>## Animation skill: Slack GIF Creator
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c71">📋 Copy</button></div><pre id="c71"><code>## Animation skill: Slack GIF Creator
 - For custom reaction emoji, celebratory gifs, tiny looping animations for chat, load the `slack-gif-creator` skill before writing code.
 - Runtime: Python + Pillow. Expected artifact: Animated GIF sized for Slack.
 - Animate transform and opacity only; always respect prefers-reduced-motion.
@@ -72,7 +80,7 @@ frames[0].save(&#x27;rocket.gif&#x27;, save_all=True,
 
 <h2>🪝 Hook: check every edit</h2>
 <p>Add to <code>.claude/settings.json</code>. After each Write/Edit of a <code>.py</code> file, Claude Code runs the check and the output comes back to the agent.</p>
-<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c55">📋 Copy</button></div><pre id="c55"><code>{
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c72">📋 Copy</button></div><pre id="c72"><code>{
   &quot;hooks&quot;: {
     &quot;PostToolUse&quot;: [
       {

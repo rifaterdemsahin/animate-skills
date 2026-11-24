@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Animate Skills</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+<link rel="stylesheet" href="site/style.css">
+</head><body>
+<button class="menu-toggle" aria-label="Menu">☰ Menu</button>
+<nav class="menu"><a class="brand" href="index.html">🎬 Animate Skills</a>
+<a href="index.html" class="on">🏠 Overview</a>
+<a href="index.html#pipeline">🗂️ Database → Artifact → Execution</a>
+<a href="index.html#claude-md">📄 CLAUDE.md</a>
+<a href="index.html#hooks">🪝 Hooks</a>
+<h4>Video</h4>
+<a class="" href="site/skills/remotion.html">🎬 Remotion</a>
+<a class="" href="site/skills/hyperframes.html">🎞️ HyperFrames</a>
+<a class="" href="site/skills/gsap-remotion.html">🧩 GSAP in Remotion</a>
+<a class="" href="site/skills/animated-video.html">📽️ Animated Video (design kit)</a>
+<h4>Web</h4>
+<a class="" href="site/skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="" href="site/skills/svg-animation.html">〰️ SVG Animation</a>
+<a class="" href="site/skills/lottie.html">🫧 Lottie</a>
+<a class="" href="site/skills/animejs.html">✨ Anime.js</a>
+<a class="" href="site/skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
+<h4>Math &amp; Explainers</h4>
+<a class="" href="site/skills/manim.html">📐 Manim</a>
+<h4>3D</h4>
+<a class="" href="site/skills/threejs-webgl.html">🧊 Three.js / WebGL</a>
+<h4>Generative</h4>
+<a class="" href="site/skills/algorithmic-art.html">🎨 Algorithmic Art</a>
+<a class="" href="site/skills/slack-gif-creator.html">🚀 Slack GIF Creator</a>
+<h4>Design</h4>
+<a class="" href="site/skills/figma-motion.html">🎛️ Figma Motion (MCP)</a>
+<a class="ext" href="https://skills.sh" target="_blank" rel="noopener">🔎 Browse skills.sh ↗</a></nav>
+<main>
+<header class="hero"><p class="kicker">🧠 LLM skills for motion</p>
+<h1>Every animation skill,<br><span class="grad">one place to start.</span></h1>
+<p class="lede">14 agent skills for making animations: video, web motion, 3D, math and generative art.
+12 of them were installed from skills.sh and actually used to make the outputs below. Each one gets its own page with the real output, copy-paste install, a ready prompt, a <code>CLAUDE.md</code> snippet and a hook.</p>
+<div class="links"><a class="btn" href="#outputs">🎁 See the outputs</a><a class="btn ghost" href="#quickstart">⚡ Quick start</a><a class="btn ghost" href="https://skills.sh" target="_blank" rel="noopener">🔎 skills.sh</a></div></header>
+
+<section class="cards"><a class="card" href="site/skills/remotion.html"><span class="emoji">🎬</span>
+<b>Remotion</b><small>Video · React + Remotion</small></a><a class="card" href="site/skills/gsap-web.html"><span class="emoji">🌀</span>
+<b>GSAP Web Animation</b><small>Web · GSAP (timelines, ScrollTrigger, SplitText)</small></a><a class="card" href="site/skills/svg-animation.html"><span class="emoji">〰️</span>
+<b>SVG Animation</b><small>Web · SVG + CSS (stroke draw-on, offset-path)</small></a><a class="card" href="site/skills/lottie.html"><span class="emoji">🫧</span>
+<b>Lottie</b><small>Web · lottie-web / dotLottie</small></a><a class="card" href="site/skills/hyperframes.html"><span class="emoji">🎞️</span>
+<b>HyperFrames</b><small>Video · HTML + GSAP (adapters: Lottie, Three.js, Anime.js, CSS, WAAPI, TypeGPU)</small></a><a class="card" href="site/skills/gsap-remotion.html"><span class="emoji">🧩</span>
+<b>GSAP in Remotion</b><small>Video · Remotion + GSAP</small></a><a class="card" href="site/skills/manim.html"><span class="emoji">📐</span>
+<b>Manim</b><small>Math &amp; Explainers · Python + Manim Community Edition</small></a><a class="card" href="site/skills/animejs.html"><span class="emoji">✨</span>
+<b>Anime.js</b><small>Web · Anime.js</small></a><a class="card" href="site/skills/threejs-webgl.html"><span class="emoji">🧊</span>
+<b>Three.js / WebGL</b><small>3D · Three.js, React Three Fiber, shaders</small></a><a class="card" href="site/skills/css-motion.html"><span class="emoji">💅</span>
+<b>CSS &amp; Web Animations API</b><small>Web · CSS keyframes, transitions, WAAPI, View Transitions</small></a><a class="card" href="site/skills/algorithmic-art.html"><span class="emoji">🎨</span>
+<b>Algorithmic Art</b><small>Generative · p5.js</small></a><a class="card" href="site/skills/slack-gif-creator.html"><span class="emoji">🚀</span>
+<b>Slack GIF Creator</b><small>Generative · Python + Pillow</small></a><a class="card" href="site/skills/animated-video.html"><span class="emoji">📽️</span>
+<b>Animated Video (design kit)</b><small>Video · HTML/CSS scenes captured to video</small></a><a class="card" href="site/skills/figma-motion.html"><span class="emoji">🎛️</span>
+<b>Figma Motion (MCP)</b><small>Design · Figma MCP server (get_motion_context, export_video)</small></a></section>
+
+<h2 id="outputs">🎁 Outputs: every skill, actually used</h2>
+<p>12 of these 14 skills were installed with <code>npx skills add</code> into <code>.claude/skills/</code>, their <code>SKILL.md</code> was followed, and this is what each one made. 🟡 and ⚪ mark the ones that couldn't run on the build machine; their pages say why. Click any tile for the source and the command to re-render it.</p>
+<section class="gallery"><a class="shot" href="site/skills/remotion.html"><img src="site/outputs/remotion/skills-intro.png" alt="" loading="lazy"><span>🎬 Remotion <small>✅ rendered</small></span></a><a class="shot" href="site/skills/gsap-web.html"><img src="site/outputs/gsap-web/pipeline-hero.png" alt="" loading="lazy"><span>🌀 GSAP Web Animation <small>✅ built</small></span></a><a class="shot" href="site/skills/svg-animation.html"><img src="site/outputs/svg-animation/route.png" alt="" loading="lazy"><span>〰️ SVG Animation <small>✅ built</small></span></a><a class="shot" href="site/skills/lottie.html"><img src="site/outputs/lottie/skill-installed.png" alt="" loading="lazy"><span>🫧 Lottie <small>✅ built</small></span></a><a class="shot" href="site/skills/hyperframes.html"><img src="site/outputs/hyperframes/title-card.png" alt="" loading="lazy"><span>🎞️ HyperFrames <small>✅ rendered</small></span></a><a class="shot" href="site/skills/gsap-remotion.html"><img src="site/outputs/gsap-remotion/gsap-title.png" alt="" loading="lazy"><span>🧩 GSAP in Remotion <small>✅ rendered</small></span></a><a class="shot" href="site/skills/manim.html"><div class="noshot">📐<small>source only</small></div><span>📐 Manim <small>🟡 source only</small></span></a><a class="shot" href="site/skills/animejs.html"><img src="site/outputs/animejs/dot-ripple.png" alt="" loading="lazy"><span>✨ Anime.js <small>✅ built</small></span></a><a class="shot" href="site/skills/threejs-webgl.html"><img src="site/outputs/threejs-webgl/particle-orbit.png" alt="" loading="lazy"><span>🧊 Three.js / WebGL <small>✅ built</small></span></a><a class="shot" href="site/skills/css-motion.html"><img src="site/outputs/css-motion/one-moment.png" alt="" loading="lazy"><span>💅 CSS &amp; Web Animations API <small>✅ built</small></span></a><a class="shot" href="site/skills/algorithmic-art.html"><img src="site/outputs/algorithmic-art/tidal-memory.png" alt="" loading="lazy"><span>🎨 Algorithmic Art <small>✅ built</small></span></a><a class="shot" href="site/skills/slack-gif-creator.html"><img src="site/outputs/slack-gif-creator/rocket-emoji.gif" alt="" loading="lazy"><span>🚀 Slack GIF Creator <small>✅ rendered</small></span></a><a class="shot" href="site/skills/animated-video.html"><img src="site/outputs/animated-video/storyboard.png" alt="" loading="lazy"><span>📽️ Animated Video (design kit) <small>✅ rendered</small></span></a><a class="shot" href="site/skills/figma-motion.html"><div class="noshot">🎛️<small>not run</small></div><span>🎛️ Figma Motion (MCP) <small>⚪ not run</small></span></a></section>
+
+<h2 id="pipeline">🗂️ Database → 🎁 Artifact → 🚀 Execution</h2>
+<div class="pipe">
+<div><h3>🗂️ Skills database</h3><p>Skills are folders with a <code>SKILL.md</code> (name, description, instructions, scripts). Registries like <a href="https://skills.sh">skills.sh</a> index them; <code>npx skills add owner/repo</code> copies them into <code>.claude/skills/</code>. This site's own database is <code>skills/skills.json</code>.</p></div>
+<div><h3>🎁 Artifact</h3><p>What the skill produces: an MP4 from Remotion, HyperFrames or Manim; an HTML page from GSAP, Anime.js, CSS or Three.js; a GIF from slack-gif-creator. Here, <code>build.py</code> turns the database into this site.</p></div>
+<div><h3>🚀 Execution</h3><p>Claude only reads each skill's short description until a prompt matches, then it loads the full <code>SKILL.md</code>, writes code, runs the renderer and hands back the artifact. Hooks check each step. This site runs on fly.io.</p></div>
+</div>
+
+<h2 id="quickstart">⚡ Quick start</h2>
+<p>Install every npx-installable skill at once:</p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c99">📋 Copy all</button></div><pre id="c99"><code>npx skills add remotion-dev/skills -s remotion-best-practices
+npx skills add iart-ai/web-animation-skills -s gsap-web
+npx skills add iart-ai/web-animation-skills -s svg-animation
+npx skills add iart-ai/web-animation-skills -s lottie-animation
+npx skills add heygen-com/hyperframes -s hyperframes -s hyperframes-cli
+npx skills add notedit/happy-skills -s gsap-animation
+npx skills add avabillions2040/claudedesignskills-02-02-2026 -s animejs
+npx skills add iart-ai/webgl-animation-skills -s threejs-animation
+npx skills add anthropics/skills -s frontend-design
+npx skills add anthropics/skills -s algorithmic-art
+npx skills add anthropics/skills -s slack-gif-creator
+npx skills add bluzir/claude-code-design -s animated-video</code></pre></div>
+<p>Then ask for an animation by naming the skill:</p>
+<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c100">📋 Copy</button></div><pre id="c100"><code>Use the remotion skill to make a 5s animated intro for this repo and render it to out/intro.mp4</code></pre></div>
+
+<h2>📚 All skills</h2>
+<div class="table"><table><thead><tr><th>Skill</th><th>Artifact</th><th>Install</th><th>Registry</th></tr></thead><tbody><tr><td><a href="site/skills/remotion.html">🎬 Remotion</a></td>
+<td>MP4 / WebM video</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c85">📋</button></div><pre id="c85"><code>npx skills add remotion-dev/skills -s remotion-best-practices</code></pre></div></td>
+<td><a href="https://skills.sh/remotion-dev/skills/remotion-best-practices" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/gsap-web.html">🌀 GSAP Web Animation</a></td>
+<td>Animated web page / component</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c86">📋</button></div><pre id="c86"><code>npx skills add iart-ai/web-animation-skills -s gsap-web</code></pre></div></td>
+<td><a href="https://skills.sh/iart-ai/web-animation-skills/gsap-web" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/svg-animation.html">〰️ SVG Animation</a></td>
+<td>Animated SVG in a page</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c87">📋</button></div><pre id="c87"><code>npx skills add iart-ai/web-animation-skills -s svg-animation</code></pre></div></td>
+<td><a href="https://skills.sh/iart-ai/web-animation-skills/svg-animation" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/lottie.html">🫧 Lottie</a></td>
+<td>Vector animation JSON embedded in a page or video</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c88">📋</button></div><pre id="c88"><code>npx skills add iart-ai/web-animation-skills -s lottie-animation</code></pre></div></td>
+<td><a href="https://skills.sh/iart-ai/web-animation-skills/lottie-animation" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/hyperframes.html">🎞️ HyperFrames</a></td>
+<td>MP4 rendered from HTML</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c89">📋</button></div><pre id="c89"><code>npx skills add heygen-com/hyperframes -s hyperframes -s hyperframes-cli</code></pre></div></td>
+<td><a href="https://skills.sh/heygen-com/hyperframes/hyperframes" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/gsap-remotion.html">🧩 GSAP in Remotion</a></td>
+<td>MP4 video</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c90">📋</button></div><pre id="c90"><code>npx skills add notedit/happy-skills -s gsap-animation</code></pre></div></td>
+<td><a href="https://skills.sh/notedit/happy-skills/gsap-animation" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/manim.html">📐 Manim</a></td>
+<td>MP4 / GIF explainer</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c91">📋</button></div><pre id="c91"><code>pip install manim   # skill: NousResearch hermes-agent manim-video</code></pre></div></td>
+<td><a href="https://skills.sh/nousresearch/hermes-agent" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/animejs.html">✨ Anime.js</a></td>
+<td>Animated web page / SVG</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c92">📋</button></div><pre id="c92"><code>npx skills add avabillions2040/claudedesignskills-02-02-2026 -s animejs</code></pre></div></td>
+<td><a href="https://skills.sh/avabillions2040/claudedesignskills-02-02-2026/animejs" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/threejs-webgl.html">🧊 Three.js / WebGL</a></td>
+<td>Interactive 3D scene</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c93">📋</button></div><pre id="c93"><code>npx skills add iart-ai/webgl-animation-skills -s threejs-animation</code></pre></div></td>
+<td><a href="https://skills.sh/iart-ai/webgl-animation-skills/threejs-animation" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/css-motion.html">💅 CSS &amp; Web Animations API</a></td>
+<td>Animated UI with zero dependencies</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c94">📋</button></div><pre id="c94"><code>npx skills add anthropics/skills -s frontend-design</code></pre></div></td>
+<td><a href="https://skills.sh/anthropics/skills/frontend-design" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/algorithmic-art.html">🎨 Algorithmic Art</a></td>
+<td>Interactive generative-art HTML</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c95">📋</button></div><pre id="c95"><code>npx skills add anthropics/skills -s algorithmic-art</code></pre></div></td>
+<td><a href="https://skills.sh/anthropics/skills/algorithmic-art" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/slack-gif-creator.html">🚀 Slack GIF Creator</a></td>
+<td>Animated GIF sized for Slack</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c96">📋</button></div><pre id="c96"><code>npx skills add anthropics/skills -s slack-gif-creator</code></pre></div></td>
+<td><a href="https://skills.sh/anthropics/skills/slack-gif-creator" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/animated-video.html">📽️ Animated Video (design kit)</a></td>
+<td>Short animated video</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c97">📋</button></div><pre id="c97"><code>npx skills add bluzir/claude-code-design -s animated-video</code></pre></div></td>
+<td><a href="https://skills.sh/bluzir/claude-code-design/animated-video" target="_blank" rel="noopener">skills.sh ↗</a></td></tr><tr><td><a href="site/skills/figma-motion.html">🎛️ Figma Motion (MCP)</a></td>
+<td>Motion specs and exported video from Figma</td><td class="cmd"><div class="code"><div class="code-bar"><span>bash</span><button data-copy="c98">📋</button></div><pre id="c98"><code>Connect the Figma connector in Claude, then load /figma-design-to-code</code></pre></div></td>
+<td><a href="https://skills.sh/?q=figma" target="_blank" rel="noopener">skills.sh ↗</a></td></tr></tbody></table></div>
+
+<h2 id="claude-md">📄 CLAUDE.md</h2>
+<p><code>CLAUDE.md</code> is loaded at the start of every session. Use it to tell Claude which animation skill to use and what a finished artifact looks like. This repo ships one; copy it as a starting point:</p>
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c101">📋 Copy</button></div><pre id="c101"><code># CLAUDE.md — animate-skills
+
+## Layout
+- `skills/skills.json` — the skills database (one entry per animation skill). Edit this, then run `python3 build.py`.
+- `.claude/skills/` — the real skills, installed with `npx skills add &lt;repo&gt; -s &lt;skill&gt;` (lockfile: `skills-lock.json`).
+- `outputs/&lt;slug&gt;/` — what each skill produced (MP4, GIF, HTML), plus the source that made it.
+- `remotion-video/` — Remotion project (SkillsIntro, GsapTitle, Storyboard compositions).
+- `hyperframes-video/` — HyperFrames project (title card).
+- `tools/capture.py` — Playwright screenshots of HTML outputs: `python3 tools/capture.py &quot;page.html?t=1.5&quot; out.png [--reduced]`.
+- `build.py` → `site/` (served by nginx on fly.io via `Dockerfile` + `fly.toml`). Never edit `site/` or this file by hand.
+
+## Skills
+- Before writing any animation code, pick the matching skill from `skills/skills.json` and load it:
+  Remotion/HyperFrames/animated-video for video, gsap-web/animejs/svg-animation/frontend-design for web,
+  threejs-animation for 3D, algorithmic-art and slack-gif-creator for generative output.
+- Follow each skill&#x27;s &quot;Deliver &amp; verify&quot; loop: freeze with `?t=N`, screenshot start/mid/end, then check both normal and reduced motion.
+
+## Rules
+- Animate transform and opacity; avoid layout-triggering properties.
+- Respect `prefers-reduced-motion` in every artifact (tier it, don&#x27;t just switch it off).
+- No ffmpeg is installed system-wide. For HyperFrames renders, set `HYPERFRAMES_FFMPEG_PATH` (imageio-ffmpeg static build in `.pydeps/`)
+  and `HYPERFRAMES_FFPROBE_PATH` (Remotion&#x27;s compositor `ffprobe`).
+- After changing outputs: `python3 build.py`, commit, push, `fly deploy`.</code></pre></div>
+
+<h2 id="hooks">🪝 Hooks</h2>
+<p>Hooks are shell commands Claude Code runs at lifecycle events. <b>SessionStart</b> lists the available skills, <b>PostToolUse</b> checks each animation file after it's written, and <b>Stop</b> reports the artifacts that were produced. This is the same config as <code>.claude/settings.json</code> in this repo:</p>
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c102">📋 Copy</button></div><pre id="c102"><code>{
+  &quot;hooks&quot;: {
+    &quot;SessionStart&quot;: [
+      {
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;echo \&quot;🎬 Animation skills: $(jq -r &#x27;[.[].slug]|join(\&quot;, \&quot;)&#x27; skills/skills.json)\&quot;&quot;
+          }
+        ]
+      }
+    ],
+    &quot;PostToolUse&quot;: [
+      {
+        &quot;matcher&quot;: &quot;Write|Edit&quot;,
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;f=$(jq -r &#x27;.tool_input.file_path // empty&#x27;); case \&quot;$f\&quot; in *.css|*.html) grep -q prefers-reduced-motion \&quot;$f\&quot; || echo \&quot;⚠️ $f: no prefers-reduced-motion guard\&quot; &gt;&amp;2 ;; esac; exit 0&quot;
+          }
+        ]
+      }
+    ],
+    &quot;Stop&quot;: [
+      {
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;ls -1 out/ 2&gt;/dev/null | sed &#x27;s/^/🎁 artifact: /&#x27;&quot;
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre></div>
+
+<h2>🛫 Deploy this site</h2>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c103">📋 Copy</button></div><pre id="c103"><code>python3 build.py &amp;&amp; fly deploy</code></pre></div>
+
+<footer>Built from <code>skills/skills.json</code> by <code>build.py</code> · served on fly.io · skills via <a href="https://skills.sh">skills.sh</a></footer>
+</main>
+<script>
+document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-copy]');if(!b)return;
+const t=document.getElementById(b.dataset.copy).innerText;
+try{await navigator.clipboard.writeText(t);}catch(_){const r=document.createRange();
+r.selectNodeContents(document.getElementById(b.dataset.copy));getSelection().removeAllRanges();getSelection().addRange(r);document.execCommand('copy');}
+const o=b.textContent;b.textContent='✅ Copied';setTimeout(()=>b.textContent=o,1400);});
+document.querySelector('.menu-toggle')?.addEventListener('click',()=>document.body.classList.toggle('nav-open'));
+
+document.querySelectorAll('.d-flow').forEach(cv=>{const x=cv.getContext('2d');let seed=7;
+const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const P=[...Array(260)].map(()=>({x:rnd()*cv.width,y:rnd()*cv.height}));
+const n=(a,b)=>Math.sin(a*.013+Math.cos(b*.011))*Math.cos(b*.009);
+function f(t){x.fillStyle='rgba(13,15,26,.06)';x.fillRect(0,0,cv.width,cv.height);
+x.fillStyle='#7cf';for(const p of P){const a=n(p.x+t*.02,p.y)*Math.PI*2;p.x+=Math.cos(a);p.y+=Math.sin(a);
+if(p.x<0||p.x>cv.width||p.y<0||p.y>cv.height){p.x=rnd()*cv.width;p.y=rnd()*cv.height}x.fillRect(p.x,p.y,1.4,1.4)}
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches)requestAnimationFrame(f)}requestAnimationFrame(f)});
+</script>
+</body></html>

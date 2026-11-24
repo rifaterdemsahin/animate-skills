@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skill Route · svg-animation</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0d0f1a; color: #9a9db8; font: 15px system-ui, sans-serif }
+  svg { width: min(900px, 94vw); height: auto }
+  .route { fill: none; stroke: url(#grad); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1 }
+  .stop circle { fill: #151829; stroke: #77ccff; stroke-width: 3 }
+  .stop text { fill: #fff; font: 600 20px system-ui, sans-serif; text-anchor: middle }
+  .stop .e { font-size: 30px }
+  .stop { opacity: 0 }
+  .rider { offset-path: path("M80 260 C 220 60, 360 60, 450 200 S 700 340, 820 140"); offset-rotate: auto; offset-distance: 0% }
+  @media (prefers-reduced-motion: no-preference) {
+    .route { animation: draw 2.4s cubic-bezier(.65,0,.35,1) forwards }
+    .stop { animation: pop .5s cubic-bezier(.2,.9,.3,1.4) forwards }
+    .s1 { animation-delay: .1s } .s2 { animation-delay: 1.2s } .s3 { animation-delay: 2.3s }
+    .rider { animation: ride 2.4s cubic-bezier(.65,0,.35,1) forwards }
+  }
+  @media (prefers-reduced-motion: reduce) { .route { stroke-dashoffset: 0 } .stop { opacity: 1 } .rider { offset-distance: 100% } }
+  @keyframes draw { to { stroke-dashoffset: 0 } }
+  @keyframes pop { from { opacity: 0; transform: scale(.4) } to { opacity: 1; transform: scale(1) } }
+  @keyframes ride { to { offset-distance: 100% } }
+  .stop { transform-box: fill-box; transform-origin: center }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 900 400" role="img" aria-label="A route from Database to Artifact to Execution">
+  <defs><linearGradient id="grad" x1="0" x2="1"><stop offset="0" stop-color="#77ccff"/><stop offset="1" stop-color="#cc77ff"/></linearGradient></defs>
+  <path class="route" pathLength="1" d="M80 260 C 220 60, 360 60, 450 200 S 700 340, 820 140"/>
+  <g class="stop s1"><circle cx="80" cy="260" r="40"/><text class="e" x="80" y="271">🗂️</text><text x="80" y="335">Database</text></g>
+  <g class="stop s2"><circle cx="450" cy="200" r="40"/><text class="e" x="450" y="211">🎁</text><text x="450" y="275">Artifact</text></g>
+  <g class="stop s3"><circle cx="820" cy="140" r="40"/><text class="e" x="820" y="151">🚀</text><text x="820" y="80">Execution</text></g>
+  <g class="rider"><circle r="10" fill="#fff"/></g>
+</svg>
+<script>
+  // seek harness: ?t=N pauses every CSS animation at N seconds
+  const t = new URLSearchParams(location.search).get("t");
+  if (t !== null) document.getAnimations().forEach((a) => { a.pause(); a.currentTime = parseFloat(t) * 1000; });
+  window.__ready = true;
+</script>
+</body>
+</html>

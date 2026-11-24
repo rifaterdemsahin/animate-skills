@@ -18,6 +18,7 @@
 <a class="" href="../skills/animated-video.html">📽️ Animated Video (design kit)</a>
 <h4>Web</h4>
 <a class="" href="../skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="" href="../skills/svg-animation.html">〰️ SVG Animation</a>
 <a class="" href="../skills/lottie.html">🫧 Lottie</a>
 <a class="" href="../skills/animejs.html">✨ Anime.js</a>
 <a class="" href="../skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
@@ -37,7 +38,10 @@
 <div class="links"><a class="btn" href="https://skills.sh/anthropics/skills/algorithmic-art" target="_blank" rel="noopener">🔎 View on skills.sh</a>
 <a class="btn ghost" href="https://github.com/anthropics/skills" target="_blank" rel="noopener">📦 Source</a></div></header>
 
-<section class="demo"><canvas class="d-flow" width="480" height="220"></canvas></section>
+<section class="output"><h2>🎁 Output made with this skill <span class="badge">✅ built</span></h2><figure><iframe src="../outputs/algorithmic-art/tidal-memory.html" title="“Tidal Memory”: seeded p5.js flow field built from the skill&#x27;s viewer.html template, with philosophy.md" loading="lazy"></iframe><figcaption>“Tidal Memory”: seeded p5.js flow field built from the skill&#x27;s viewer.html template, with philosophy.md
+<span class="links"><a href="../outputs/algorithmic-art/tidal-memory.html" target="_blank" rel="noopener">Open full ↗</a>
+<a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/algorithmic-art/tidal-memory.html" target="_blank" rel="noopener">GitHub ↗</a></span></figcaption></figure></section>
+
 
 <section class="facts">
 <div><span>⚙️ Runtime</span>p5.js</div>
@@ -48,16 +52,20 @@
 
 <h2>⚡ 1. Install (database)</h2>
 <p>Pull the skill from the registry into <code>.claude/skills/</code> so the agent can discover it.</p>
-<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c46">📋 Copy</button></div><pre id="c46"><code>/plugin marketplace add anthropics/skills</code></pre></div>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c61">📋 Copy</button></div><pre id="c61"><code>npx skills add anthropics/skills -s algorithmic-art</code></pre></div>
 
 <h2>💬 2. Prompt it (execution)</h2>
 <p>Name the skill in your prompt so Claude loads its <code>SKILL.md</code> before acting.</p>
-<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c47">📋 Copy</button></div><pre id="c47"><code>Use the algorithmic-art skill. Create a flow-field piece inspired by wind over water, seeded, with sliders for particle count and noise scale.</code></pre></div>
+<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c62">📋 Copy</button></div><pre id="c62"><code>Use the algorithmic-art skill. Create a flow-field piece inspired by wind over water, seeded, with sliders for particle count and noise scale.</code></pre></div>
 
 <h2>🧠 What the agent does</h2><ol class="steps"><li>Agent writes a short algorithmic philosophy (.md).</li><li>Implements it as a p5.js sketch with randomSeed/noiseSeed.</li><li>Adds UI controls for parameters.</li><li>Returns a self-contained HTML artifact.</li></ol>
 
+<h2>▶️ Run it again</h2>
+<p>Source: <a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/algorithmic-art/tidal-memory.html" target="_blank" rel="noopener"><code>outputs/algorithmic-art/tidal-memory.html</code></a> · installed skill: <a href="https://github.com/rifaterdemsahin/animate-skills/tree/main/.claude/skills/algorithmic-art" target="_blank" rel="noopener"><code>.claude/skills/algorithmic-art</code></a></p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c63">📋 Copy</button></div><pre id="c63"><code>open outputs/algorithmic-art/tidal-memory.html</code></pre></div>
+
 <h2>🧪 Core pattern (artifact)</h2>
-<div class="code"><div class="code-bar"><span>code</span><button data-copy="c48">📋 Copy</button></div><pre id="c48"><code>function draw() {
+<div class="code"><div class="code-bar"><span>code</span><button data-copy="c64">📋 Copy</button></div><pre id="c64"><code>function draw() {
   for (const p of particles) {
     const a = noise(p.x * s, p.y * s) * TAU * 2;
     p.add(cos(a), sin(a)); point(p.x, p.y);
@@ -66,7 +74,7 @@
 
 <h2>📄 CLAUDE.md snippet</h2>
 <p>Paste into your project's <code>CLAUDE.md</code> so every session knows when to use this skill.</p>
-<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c49">📋 Copy</button></div><pre id="c49"><code>## Animation skill: Algorithmic Art
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c65">📋 Copy</button></div><pre id="c65"><code>## Animation skill: Algorithmic Art
 - For generative backgrounds, art pieces, seeded variations you can reproduce, load the `algorithmic-art` skill before writing code.
 - Runtime: p5.js. Expected artifact: Interactive generative-art HTML.
 - Animate transform and opacity only; always respect prefers-reduced-motion.
@@ -75,7 +83,7 @@
 
 <h2>🪝 Hook: check every edit</h2>
 <p>Add to <code>.claude/settings.json</code>. After each Write/Edit of a <code>.js</code> file, Claude Code runs the check and the output comes back to the agent.</p>
-<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c50">📋 Copy</button></div><pre id="c50"><code>{
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c66">📋 Copy</button></div><pre id="c66"><code>{
   &quot;hooks&quot;: {
     &quot;PostToolUse&quot;: [
       {

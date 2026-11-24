@@ -32,7 +32,34 @@ DEMOS = {
     "slack-gif-creator": '<div class="d-rocket">🚀</div>',
     "animated-video": '<div class="d-board"><i>Hook</i><i>Problem</i><i>Product</i><i>CTA</i></div>',
     "figma-motion": '<div class="d-panel"><i></i></div>',
+    "svg-animation": '<svg class="d-check" viewBox="0 0 52 52"><path d="M4 40 C 14 4, 30 4, 26 26 S 40 48, 48 12"/></svg>',
 }
+
+REPO = "https://github.com/rifaterdemsahin/animate-skills"
+STATUS = {"rendered": "✅ rendered", "built": "✅ built", "source only": "🟡 source only", "not run": "⚪ not run"}
+
+
+def media(o, prefix):
+    """Embed one output file: video, gif or live HTML."""
+    f, poster = prefix + "outputs/" + o["file"], (prefix + "outputs/" + o["poster"]) if o.get("poster") else ""
+    if f.endswith(".mp4"):
+        return f'<video src="{f}" poster="{poster}" controls muted loop playsinline preload="metadata"></video>'
+    if f.endswith(".gif"):
+        return f'<img class="gif" src="{f}" alt="{e(o["caption"])}">'
+    return f'<iframe src="{f}" title="{e(o["caption"])}" loading="lazy"></iframe>'
+
+
+def outputs_section(s, prefix="../"):
+    badge = f'<span class="badge">{STATUS.get(s.get("status", ""), "")}</span>'
+    if not s.get("outputs"):
+        return f'<section class="output empty"><h2>🎁 Output {badge}</h2><p>{e(s.get("note", ""))}</p></section>'
+    items = "".join(
+        f"""<figure>{media(o, prefix)}<figcaption>{e(o['caption'])}
+<span class="links"><a href="{prefix}outputs/{o['file']}" target="_blank" rel="noopener">Open full ↗</a>
+<a href="{REPO}/blob/main/outputs/{o['file']}" target="_blank" rel="noopener">GitHub ↗</a></span></figcaption></figure>"""
+        for o in s["outputs"])
+    return f'<section class="output"><h2>🎁 Output made with this skill {badge}</h2>{items}</section>'
+
 
 FLOW_JS = """
 document.querySelectorAll('.d-flow').forEach(cv=>{const x=cv.getContext('2d');let seed=7;
@@ -126,7 +153,8 @@ def skill_page(s):
 <div class="links"><a class="btn" href="{e(s['skills_sh'])}" target="_blank" rel="noopener">🔎 View on skills.sh</a>
 <a class="btn ghost" href="{e(s['url'])}" target="_blank" rel="noopener">📦 Source</a></div></header>
 
-<section class="demo">{DEMOS[s['slug']]}</section>
+{outputs_section(s)}
+{'' if s.get('outputs') else f'<section class="demo">{DEMOS[s["slug"]]}</section>'}
 
 <section class="facts">
 <div><span>⚙️ Runtime</span>{e(s['runtime'])}</div>
@@ -145,6 +173,10 @@ def skill_page(s):
 
 <h2>🧠 What the agent does</h2><ol class="steps">{steps}</ol>
 
+<h2>▶️ Run it again</h2>
+<p>Source: {f'<a href="{REPO}/blob/main/{e(s["source_code"])}" target="_blank" rel="noopener"><code>{e(s["source_code"])}</code></a>' if s.get('source_code') else 'n/a'}{' · installed skill: ' + ', '.join(f'<a href="{REPO}/tree/main/.claude/skills/{d}" target="_blank" rel="noopener"><code>.claude/skills/{d}</code></a>' for d in s.get('skill_dirs', [])) if s.get('skill_dirs') else ''}</p>
+{block(s.get('run', ''), lang='bash')}
+
 <h2>🧪 Core pattern (artifact)</h2>
 {block(s['code'], lang='code')}
 
@@ -159,6 +191,14 @@ def skill_page(s):
     return page(f"{s['name']} · Animate Skills", body, s["slug"], prefix="../")
 
 
+def thumb(s):
+    o = (s.get("outputs") or [None])[0]
+    if not o:
+        return f'<div class="noshot">{s["emoji"]}<small>{e(s.get("status", ""))}</small></div>'
+    img = o.get("poster") or o["file"]
+    return f'<img src="outputs/{img}" alt="" loading="lazy">'
+
+
 def index():
     rows = "".join(
         f"""<tr><td><a href="skills/{s['slug']}.html">{s['emoji']} {e(s['name'])}</a></td>
@@ -168,20 +208,33 @@ def index():
     cards = "".join(
         f"""<a class="card" href="skills/{s['slug']}.html"><span class="emoji">{s['emoji']}</span>
 <b>{e(s['name'])}</b><small>{e(s['category'])} · {e(s['runtime'])}</small></a>""" for s in skills)
+    gallery = "".join(
+        f"""<a class="shot" href="skills/{s['slug']}.html">{thumb(s)}<span>{s['emoji']} {e(s['name'])} <small>{STATUS.get(s.get('status',''),'')}</small></span></a>"""
+        for s in skills)
     all_install = "\n".join(dict.fromkeys(s["install"] for s in skills if s["install"].startswith("npx")))
-    claude_md = """# CLAUDE.md — animation projects
+    claude_md = """# CLAUDE.md — animate-skills
+
+## Layout
+- `skills/skills.json` — the skills database (one entry per animation skill). Edit this, then run `python3 build.py`.
+- `.claude/skills/` — the real skills, installed with `npx skills add <repo> -s <skill>` (lockfile: `skills-lock.json`).
+- `outputs/<slug>/` — what each skill produced (MP4, GIF, HTML), plus the source that made it.
+- `remotion-video/` — Remotion project (SkillsIntro, GsapTitle, Storyboard compositions).
+- `hyperframes-video/` — HyperFrames project (title card).
+- `tools/capture.py` — Playwright screenshots of HTML outputs: `python3 tools/capture.py "page.html?t=1.5" out.png [--reduced]`.
+- `build.py` → `site/` (served by nginx on fly.io via `Dockerfile` + `fly.toml`). Never edit `site/` or this file by hand.
 
 ## Skills
-- Animation skills live in `.claude/skills/` (installed from skills.sh with `npx skills add`).
-- Before writing any animation code, pick the matching skill from `skills/skills.json`
-  and load it: Remotion/HyperFrames for video, GSAP/Anime.js/CSS for web,
-  Three.js for 3D, Manim for math, algorithmic-art / slack-gif-creator for generative output.
+- Before writing any animation code, pick the matching skill from `skills/skills.json` and load it:
+  Remotion/HyperFrames/animated-video for video, gsap-web/animejs/svg-animation/frontend-design for web,
+  threejs-animation for 3D, algorithmic-art and slack-gif-creator for generative output.
+- Follow each skill's "Deliver & verify" loop: freeze with `?t=N`, screenshot start/mid/end, then check both normal and reduced motion.
 
 ## Rules
 - Animate transform and opacity; avoid layout-triggering properties.
-- Respect `prefers-reduced-motion` in every artifact.
-- Sources in `animations/<skill>/`, rendered artifacts in `out/` (git-ignored).
-- When done, state the artifact path and the exact command to preview or render it."""
+- Respect `prefers-reduced-motion` in every artifact (tier it, don't just switch it off).
+- No ffmpeg is installed system-wide. For HyperFrames renders, set `HYPERFRAMES_FFMPEG_PATH` (imageio-ffmpeg static build in `.pydeps/`)
+  and `HYPERFRAMES_FFPROBE_PATH` (Remotion's compositor `ffprobe`).
+- After changing outputs: `python3 build.py`, commit, push, `fly deploy`."""
     hooks = json.dumps({"hooks": {
         "SessionStart": [{"hooks": [{"type": "command",
             "command": "echo \"🎬 Animation skills: $(jq -r '[.[].slug]|join(\", \")' skills/skills.json)\""}]}],
@@ -192,11 +245,15 @@ def index():
     body = f"""
 <header class="hero"><p class="kicker">🧠 LLM skills for motion</p>
 <h1>Every animation skill,<br><span class="grad">one place to start.</span></h1>
-<p class="lede">{len(skills)} agent skills for making animations — video, web motion, 3D, math and generative art.
-Each one gets its own page with a live demo, copy-paste install, a ready prompt, a <code>CLAUDE.md</code> snippet and a hook.</p>
-<div class="links"><a class="btn" href="#quickstart">⚡ Quick start</a><a class="btn ghost" href="https://skills.sh" target="_blank" rel="noopener">🔎 skills.sh</a></div></header>
+<p class="lede">{len(skills)} agent skills for making animations: video, web motion, 3D, math and generative art.
+{sum(1 for s in skills if s.get('outputs'))} of them were installed from skills.sh and actually used to make the outputs below. Each one gets its own page with the real output, copy-paste install, a ready prompt, a <code>CLAUDE.md</code> snippet and a hook.</p>
+<div class="links"><a class="btn" href="#outputs">🎁 See the outputs</a><a class="btn ghost" href="#quickstart">⚡ Quick start</a><a class="btn ghost" href="https://skills.sh" target="_blank" rel="noopener">🔎 skills.sh</a></div></header>
 
 <section class="cards">{cards}</section>
+
+<h2 id="outputs">🎁 Outputs: every skill, actually used</h2>
+<p>{sum(1 for s in skills if s.get('outputs'))} of these {len(skills)} skills were installed with <code>npx skills add</code> into <code>.claude/skills/</code>, their <code>SKILL.md</code> was followed, and this is what each one made. 🟡 and ⚪ mark the ones that couldn't run on the build machine; their pages say why. Click any tile for the source and the command to re-render it.</p>
+<section class="gallery">{gallery}</section>
 
 <h2 id="pipeline">🗂️ Database → 🎁 Artifact → 🚀 Execution</h2>
 <div class="pipe">
@@ -228,20 +285,79 @@ Each one gets its own page with a live demo, copy-paste install, a ready prompt,
     return page("Animate Skills", body, "home"), claude_md, hooks
 
 
+SITE = "https://animate-skills.fly.dev"
+
+
+def readme():
+    rows = []
+    for s in skills:
+        outs = " · ".join(f"[{Path(o['file']).name}](outputs/{o['file']})" for o in s.get("outputs", [])) or f"_{s.get('status', '')}_"
+        src = f"[source]({s['source_code']})" if s.get("source_code") else ""
+        dirs = ", ".join(f"[`{d}`](.claude/skills/{d})" for d in s.get("skill_dirs", [])) or "—"
+        rows.append(f"| {s['emoji']} [{s['name']}]({SITE}/skills/{s['slug']}.html) | {outs} {src} | {dirs} | [skills.sh]({s['skills_sh']}) |")
+    used = sum(1 for s in skills if s.get("outputs"))
+    return f"""# 🎬 animate-skills
+
+{len(skills)} LLM agent skills for making animations: video, web motion, 3D, math and generative art.
+{used} were installed from [skills.sh](https://skills.sh) with `npx skills add` and **actually used** to make the outputs below.
+Each skill has its own page with the real output, a copy-paste install, a ready prompt, a `CLAUDE.md` snippet and a hook.
+
+🌐 **Live site:** [{SITE}]({SITE}) · 📄 [index.html](index.html) (open locally after `python3 build.py`) · 🎁 [Outputs gallery]({SITE}/#outputs) · 🗂️ [skills database](skills/skills.json)
+
+![rocket emoji made with slack-gif-creator](outputs/slack-gif-creator/rocket-emoji.gif)
+
+## 🎁 Skills and their outputs
+
+| Skill (page) | Output made with it | Installed skill | Registry |
+|---|---|---|---|
+""" + "\n".join(rows) + f"""
+
+## 🗂️ Database → 🎁 Artifact → 🚀 Execution
+
+| Stage | Where |
+|---|---|
+| 🗂️ Database | [`skills/skills.json`](skills/skills.json), with the real skills in [`.claude/skills/`](.claude/skills) ([`skills-lock.json`](skills-lock.json)) |
+| 🎁 Artifact | [`outputs/`](outputs) (MP4, GIF, HTML), made in [`remotion-video/`](remotion-video), [`hyperframes-video/`](hyperframes-video) and `outputs/*/` |
+| 🚀 Execution | [`build.py`](build.py) → `site/` → [`Dockerfile`](Dockerfile) + [`fly.toml`](fly.toml) → [{SITE}]({SITE}) |
+
+Also generated from the database: [`CLAUDE.md`](CLAUDE.md) and the hooks in [`.claude/settings.json`](.claude/settings.json).
+
+## ⚡ Quick start
+
+```bash
+npx skills add remotion-dev/skills -s remotion-best-practices      # install a skill
+python3 build.py                                                   # rebuild site/, README.md, CLAUDE.md, hooks
+python3 -m http.server -d site 8000                                # preview
+fly deploy                                                         # ship
+```
+
+To add a skill: install it, make an output in `outputs/<slug>/`, add an entry to `skills/skills.json`, then run `python3 build.py`.
+
+> README.md is generated by `build.py`. Edit the generator or the database, not this file.
+"""
+
+
 def main():
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "skills").mkdir(parents=True)
     shutil.copy(ROOT / "style.css", OUT / "style.css")
     shutil.copy(DB, OUT / "skills.json")
+    shutil.copytree(ROOT / "outputs", OUT / "outputs")
     for s in skills:
         (OUT / "skills" / f"{s['slug']}.html").write_text(skill_page(s))
     idx, claude_md, hooks = index()
     (OUT / "index.html").write_text(idx)
+    # Root index.html: same page, links pointed into site/ so it opens straight from a clone.
+    root_idx = (idx.replace('href="style.css"', 'href="site/style.css"')
+                   .replace('href="skills/', 'href="site/skills/')
+                   .replace('src="outputs/', 'src="site/outputs/'))
+    (ROOT / "index.html").write_text(root_idx)
     # Keep the repo's own CLAUDE.md and hooks in sync with what the site shows.
     (ROOT / "CLAUDE.md").write_text(claude_md + "\n")
     (ROOT / ".claude").mkdir(exist_ok=True)
     (ROOT / ".claude" / "settings.json").write_text(hooks + "\n")
+    (ROOT / "README.md").write_text(readme())
     print(f"Built {len(skills)} skill pages + index into {OUT}")
 
 

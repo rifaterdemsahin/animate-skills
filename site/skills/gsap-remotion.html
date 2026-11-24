@@ -18,6 +18,7 @@
 <a class="" href="../skills/animated-video.html">📽️ Animated Video (design kit)</a>
 <h4>Web</h4>
 <a class="" href="../skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="" href="../skills/svg-animation.html">〰️ SVG Animation</a>
 <a class="" href="../skills/lottie.html">🫧 Lottie</a>
 <a class="" href="../skills/animejs.html">✨ Anime.js</a>
 <a class="" href="../skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
@@ -35,9 +36,12 @@
 <header class="hero small"><p class="kicker">🧩 Video skill</p>
 <h1>GSAP in Remotion</h1><p class="lede">Bridges GSAP into Remotion compositions by seeking a paused timeline to the current frame, so you get GSAP easing, morphing and text effects beyond interpolate() and spring().</p>
 <div class="links"><a class="btn" href="https://skills.sh/notedit/happy-skills/gsap-animation" target="_blank" rel="noopener">🔎 View on skills.sh</a>
-<a class="btn ghost" href="https://skills.sh/notedit/happy-skills/gsap-animation" target="_blank" rel="noopener">📦 Source</a></div></header>
+<a class="btn ghost" href="https://github.com/notedit/happy-skills" target="_blank" rel="noopener">📦 Source</a></div></header>
 
-<section class="demo"><svg class="d-morph" viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60"/></svg></section>
+<section class="output"><h2>🎁 Output made with this skill <span class="badge">✅ rendered</span></h2><figure><video src="../outputs/gsap-remotion/gsap-title.mp4" poster="../outputs/gsap-remotion/gsap-title.png" controls muted loop playsinline preload="metadata"></video><figcaption>GsapTitle: SplitText chars + DrawSVG ring, paused GSAP timeline seeked to frame / fps
+<span class="links"><a href="../outputs/gsap-remotion/gsap-title.mp4" target="_blank" rel="noopener">Open full ↗</a>
+<a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/gsap-remotion/gsap-title.mp4" target="_blank" rel="noopener">GitHub ↗</a></span></figcaption></figure></section>
+
 
 <section class="facts">
 <div><span>⚙️ Runtime</span>Remotion + GSAP</div>
@@ -48,22 +52,26 @@
 
 <h2>⚡ 1. Install (database)</h2>
 <p>Pull the skill from the registry into <code>.claude/skills/</code> so the agent can discover it.</p>
-<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c21">📋 Copy</button></div><pre id="c21"><code>npx skills add notedit/happy-skills</code></pre></div>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c31">📋 Copy</button></div><pre id="c31"><code>npx skills add notedit/happy-skills -s gsap-animation</code></pre></div>
 
 <h2>💬 2. Prompt it (execution)</h2>
 <p>Name the skill in your prompt so Claude loads its <code>SKILL.md</code> before acting.</p>
-<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c22">📋 Copy</button></div><pre id="c22"><code>Use the gsap-animation skill. In my Remotion composition, drive a paused GSAP timeline from useCurrentFrame() to morph the logo outline into a circle.</code></pre></div>
+<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c32">📋 Copy</button></div><pre id="c32"><code>Use the gsap-animation skill. In my Remotion composition, drive a paused GSAP timeline from useCurrentFrame() to morph the logo outline into a circle.</code></pre></div>
 
 <h2>🧠 What the agent does</h2><ol class="steps"><li>Agent builds a paused gsap.timeline() in a ref.</li><li>On each frame, seeks tl.seek(frame / fps).</li><li>Keeps rendering deterministic (no requestAnimationFrame).</li><li>Renders through Remotion to MP4.</li></ol>
 
+<h2>▶️ Run it again</h2>
+<p>Source: <a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/remotion-video/src/GsapTitle.tsx" target="_blank" rel="noopener"><code>remotion-video/src/GsapTitle.tsx</code></a> · installed skill: <a href="https://github.com/rifaterdemsahin/animate-skills/tree/main/.claude/skills/gsap-animation" target="_blank" rel="noopener"><code>.claude/skills/gsap-animation</code></a></p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c33">📋 Copy</button></div><pre id="c33"><code>cd remotion-video &amp;&amp; npx remotion render GsapTitle out/gsap-title.mp4</code></pre></div>
+
 <h2>🧪 Core pattern (artifact)</h2>
-<div class="code"><div class="code-bar"><span>code</span><button data-copy="c23">📋 Copy</button></div><pre id="c23"><code>const tl = useMemo(() =&gt; gsap.timeline({paused:true})
+<div class="code"><div class="code-bar"><span>code</span><button data-copy="c34">📋 Copy</button></div><pre id="c34"><code>const tl = useMemo(() =&gt; gsap.timeline({paused:true})
   .to(ref.current,{morphSVG:&#x27;#circle&#x27;,duration:2}), []);
 useEffect(() =&gt; { tl.seek(frame / fps); }, [frame]);</code></pre></div>
 
 <h2>📄 CLAUDE.md snippet</h2>
 <p>Paste into your project's <code>CLAUDE.md</code> so every session knows when to use this skill.</p>
-<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c24">📋 Copy</button></div><pre id="c24"><code>## Animation skill: GSAP in Remotion
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c35">📋 Copy</button></div><pre id="c35"><code>## Animation skill: GSAP in Remotion
 - For you already use remotion but need gsap-level easing, morphsvg or splittext in video, load the `gsap-remotion` skill before writing code.
 - Runtime: Remotion + GSAP. Expected artifact: MP4 video.
 - Animate transform and opacity only; always respect prefers-reduced-motion.
@@ -72,7 +80,7 @@ useEffect(() =&gt; { tl.seek(frame / fps); }, [frame]);</code></pre></div>
 
 <h2>🪝 Hook: check every edit</h2>
 <p>Add to <code>.claude/settings.json</code>. After each Write/Edit of a <code>.tsx</code> file, Claude Code runs the check and the output comes back to the agent.</p>
-<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c25">📋 Copy</button></div><pre id="c25"><code>{
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c36">📋 Copy</button></div><pre id="c36"><code>{
   &quot;hooks&quot;: {
     &quot;PostToolUse&quot;: [
       {

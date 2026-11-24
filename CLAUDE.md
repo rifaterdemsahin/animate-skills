@@ -1,13 +1,23 @@
-# CLAUDE.md — animation projects
+# CLAUDE.md — animate-skills
+
+## Layout
+- `skills/skills.json` — the skills database (one entry per animation skill). Edit this, then run `python3 build.py`.
+- `.claude/skills/` — the real skills, installed with `npx skills add <repo> -s <skill>` (lockfile: `skills-lock.json`).
+- `outputs/<slug>/` — what each skill produced (MP4, GIF, HTML), plus the source that made it.
+- `remotion-video/` — Remotion project (SkillsIntro, GsapTitle, Storyboard compositions).
+- `hyperframes-video/` — HyperFrames project (title card).
+- `tools/capture.py` — Playwright screenshots of HTML outputs: `python3 tools/capture.py "page.html?t=1.5" out.png [--reduced]`.
+- `build.py` → `site/` (served by nginx on fly.io via `Dockerfile` + `fly.toml`). Never edit `site/` or this file by hand.
 
 ## Skills
-- Animation skills live in `.claude/skills/` (installed from skills.sh with `npx skills add`).
-- Before writing any animation code, pick the matching skill from `skills/skills.json`
-  and load it: Remotion/HyperFrames for video, GSAP/Anime.js/CSS for web,
-  Three.js for 3D, Manim for math, algorithmic-art / slack-gif-creator for generative output.
+- Before writing any animation code, pick the matching skill from `skills/skills.json` and load it:
+  Remotion/HyperFrames/animated-video for video, gsap-web/animejs/svg-animation/frontend-design for web,
+  threejs-animation for 3D, algorithmic-art and slack-gif-creator for generative output.
+- Follow each skill's "Deliver & verify" loop: freeze with `?t=N`, screenshot start/mid/end, then check both normal and reduced motion.
 
 ## Rules
 - Animate transform and opacity; avoid layout-triggering properties.
-- Respect `prefers-reduced-motion` in every artifact.
-- Sources in `animations/<skill>/`, rendered artifacts in `out/` (git-ignored).
-- When done, state the artifact path and the exact command to preview or render it.
+- Respect `prefers-reduced-motion` in every artifact (tier it, don't just switch it off).
+- No ffmpeg is installed system-wide. For HyperFrames renders, set `HYPERFRAMES_FFMPEG_PATH` (imageio-ffmpeg static build in `.pydeps/`)
+  and `HYPERFRAMES_FFPROBE_PATH` (Remotion's compositor `ffprobe`).
+- After changing outputs: `python3 build.py`, commit, push, `fly deploy`.

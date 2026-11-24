@@ -18,6 +18,7 @@
 <a class="" href="../skills/animated-video.html">📽️ Animated Video (design kit)</a>
 <h4>Web</h4>
 <a class="" href="../skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="" href="../skills/svg-animation.html">〰️ SVG Animation</a>
 <a class="" href="../skills/lottie.html">🫧 Lottie</a>
 <a class="" href="../skills/animejs.html">✨ Anime.js</a>
 <a class="" href="../skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
@@ -37,6 +38,7 @@
 <div class="links"><a class="btn" href="https://skills.sh/?q=figma" target="_blank" rel="noopener">🔎 View on skills.sh</a>
 <a class="btn ghost" href="https://www.figma.com/" target="_blank" rel="noopener">📦 Source</a></div></header>
 
+<section class="output empty"><h2>🎁 Output <span class="badge">⚪ not run</span></h2><p>Needs a Figma file to read motion from; no Figma file was provided, so this one has no output yet.</p></section>
 <section class="demo"><div class="d-panel"><i></i></div></section>
 
 <section class="facts">
@@ -48,21 +50,25 @@
 
 <h2>⚡ 1. Install (database)</h2>
 <p>Pull the skill from the registry into <code>.claude/skills/</code> so the agent can discover it.</p>
-<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c61">📋 Copy</button></div><pre id="c61"><code>Connect the Figma connector in Claude, then load /figma-design-to-code</code></pre></div>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c79">📋 Copy</button></div><pre id="c79"><code>Connect the Figma connector in Claude, then load /figma-design-to-code</code></pre></div>
 
 <h2>💬 2. Prompt it (execution)</h2>
 <p>Name the skill in your prompt so Claude loads its <code>SKILL.md</code> before acting.</p>
-<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c62">📋 Copy</button></div><pre id="c62"><code>Read the motion context for this Figma frame and reproduce the transition in CSS with the same durations and easing.</code></pre></div>
+<div class="code"><div class="code-bar"><span>prompt</span><button data-copy="c80">📋 Copy</button></div><pre id="c80"><code>Read the motion context for this Figma frame and reproduce the transition in CSS with the same durations and easing.</code></pre></div>
 
 <h2>🧠 What the agent does</h2><ol class="steps"><li>Agent creates a Figma session for the file.</li><li>Calls get_motion_context on the frame.</li><li>Maps easing/duration to CSS or GSAP.</li><li>Returns code plus an optional exported video.</li></ol>
 
+<h2>▶️ Run it again</h2>
+<p>Source: n/a</p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c81">📋 Copy</button></div><pre id="c81"><code>Give Claude a figma.com frame URL and ask it to reproduce the transition</code></pre></div>
+
 <h2>🧪 Core pattern (artifact)</h2>
-<div class="code"><div class="code-bar"><span>code</span><button data-copy="c63">📋 Copy</button></div><pre id="c63"><code>// from get_motion_context: { duration: 300, easing: &#x27;ease-out&#x27;, type: &#x27;smart-animate&#x27; }
+<div class="code"><div class="code-bar"><span>code</span><button data-copy="c82">📋 Copy</button></div><pre id="c82"><code>// from get_motion_context: { duration: 300, easing: &#x27;ease-out&#x27;, type: &#x27;smart-animate&#x27; }
 .panel { transition: transform 300ms ease-out; }</code></pre></div>
 
 <h2>📄 CLAUDE.md snippet</h2>
 <p>Paste into your project's <code>CLAUDE.md</code> so every session knows when to use this skill.</p>
-<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c64">📋 Copy</button></div><pre id="c64"><code>## Animation skill: Figma Motion (MCP)
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c83">📋 Copy</button></div><pre id="c83"><code>## Animation skill: Figma Motion (MCP)
 - For designers animate in figma and engineers need matching css/gsap timings, load the `figma-motion` skill before writing code.
 - Runtime: Figma MCP server (get_motion_context, export_video). Expected artifact: Motion specs and exported video from Figma.
 - Animate transform and opacity only; always respect prefers-reduced-motion.
@@ -71,7 +77,7 @@
 
 <h2>🪝 Hook: check every edit</h2>
 <p>Add to <code>.claude/settings.json</code>. After each Write/Edit of a <code>.css</code> file, Claude Code runs the check and the output comes back to the agent.</p>
-<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c65">📋 Copy</button></div><pre id="c65"><code>{
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c84">📋 Copy</button></div><pre id="c84"><code>{
   &quot;hooks&quot;: {
     &quot;PostToolUse&quot;: [
       {

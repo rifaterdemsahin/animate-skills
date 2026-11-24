@@ -18,6 +18,7 @@
 <a class="" href="../skills/animated-video.html">📽️ Animated Video (design kit)</a>
 <h4>Web</h4>
 <a class="" href="../skills/gsap-web.html">🌀 GSAP Web Animation</a>
+<a class="" href="../skills/svg-animation.html">〰️ SVG Animation</a>
 <a class="" href="../skills/lottie.html">🫧 Lottie</a>
 <a class="" href="../skills/animejs.html">✨ Anime.js</a>
 <a class="" href="../skills/css-motion.html">💅 CSS &amp; Web Animations API</a>
@@ -35,20 +36,23 @@
 <header class="hero small"><p class="kicker">🎬 Video skill</p>
 <h1>Remotion</h1><p class="lede">Teaches the agent to build videos as React components: compositions, sequences, useCurrentFrame(), interpolate() and spring(). Reference files cover Three.js/React Three Fiber scenes and Lottie embedding.</p>
 <div class="links"><a class="btn" href="https://skills.sh/remotion-dev/skills/remotion-best-practices" target="_blank" rel="noopener">🔎 View on skills.sh</a>
-<a class="btn ghost" href="https://www.claudepluginhub.com/skills/remotion-dev-remotion-dev-skills/remotion" target="_blank" rel="noopener">📦 Source</a></div></header>
+<a class="btn ghost" href="https://github.com/remotion-dev/skills" target="_blank" rel="noopener">📦 Source</a></div></header>
 
-<section class="demo"><div class="d-spring">Q3</div></section>
+<section class="output"><h2>🎁 Output made with this skill <span class="badge">✅ rendered</span></h2><figure><video src="../outputs/remotion/skills-intro.mp4" poster="../outputs/remotion/skills-intro.png" controls muted loop playsinline preload="metadata"></video><figcaption>SkillsIntro: 1080×1080, 4s, interpolate() + Easing.spring()
+<span class="links"><a href="../outputs/remotion/skills-intro.mp4" target="_blank" rel="noopener">Open full ↗</a>
+<a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/outputs/remotion/skills-intro.mp4" target="_blank" rel="noopener">GitHub ↗</a></span></figcaption></figure></section>
+
 
 <section class="facts">
 <div><span>⚙️ Runtime</span>React + Remotion</div>
 <div><span>🎁 Artifact</span>MP4 / WebM video</div>
-<div><span>🏷️ Source</span>remotion-dev/skills (official) and community forks</div>
+<div><span>🏷️ Source</span>remotion-dev/skills (official)</div>
 <div><span>🎯 Use it for</span>Programmatic, data-driven or templated video: product explainers, social clips, animated charts, captions.</div>
 </section>
 
 <h2>⚡ 1. Install (database)</h2>
 <p>Pull the skill from the registry into <code>.claude/skills/</code> so the agent can discover it.</p>
-<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c1">📋 Copy</button></div><pre id="c1"><code>npx skills add remotion-dev/skills</code></pre></div>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c1">📋 Copy</button></div><pre id="c1"><code>npx skills add remotion-dev/skills -s remotion-best-practices</code></pre></div>
 
 <h2>💬 2. Prompt it (execution)</h2>
 <p>Name the skill in your prompt so Claude loads its <code>SKILL.md</code> before acting.</p>
@@ -56,15 +60,19 @@
 
 <h2>🧠 What the agent does</h2><ol class="steps"><li>Agent loads SKILL.md and its rule files (timing, sequencing, assets).</li><li>Scaffolds a Remotion project and writes a Composition in src/.</li><li>Previews in Remotion Studio (npx remotion studio).</li><li>Renders with npx remotion render to an MP4 artifact.</li></ol>
 
+<h2>▶️ Run it again</h2>
+<p>Source: <a href="https://github.com/rifaterdemsahin/animate-skills/blob/main/remotion-video/src/SkillsIntro.tsx" target="_blank" rel="noopener"><code>remotion-video/src/SkillsIntro.tsx</code></a> · installed skill: <a href="https://github.com/rifaterdemsahin/animate-skills/tree/main/.claude/skills/remotion-best-practices" target="_blank" rel="noopener"><code>.claude/skills/remotion-best-practices</code></a></p>
+<div class="code"><div class="code-bar"><span>bash</span><button data-copy="c3">📋 Copy</button></div><pre id="c3"><code>cd remotion-video &amp;&amp; npx remotion render SkillsIntro out/skills-intro.mp4</code></pre></div>
+
 <h2>🧪 Core pattern (artifact)</h2>
-<div class="code"><div class="code-bar"><span>code</span><button data-copy="c3">📋 Copy</button></div><pre id="c3"><code>const frame = useCurrentFrame();
+<div class="code"><div class="code-bar"><span>code</span><button data-copy="c4">📋 Copy</button></div><pre id="c4"><code>const frame = useCurrentFrame();
 const {fps} = useVideoConfig();
 const scale = spring({frame, fps, config: {damping: 12}});
 return &lt;div style={{transform: `scale(${scale})`}}&gt;Q3&lt;/div&gt;;</code></pre></div>
 
 <h2>📄 CLAUDE.md snippet</h2>
 <p>Paste into your project's <code>CLAUDE.md</code> so every session knows when to use this skill.</p>
-<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c4">📋 Copy</button></div><pre id="c4"><code>## Animation skill: Remotion
+<div class="code"><div class="code-bar"><span>CLAUDE.md</span><button data-copy="c5">📋 Copy</button></div><pre id="c5"><code>## Animation skill: Remotion
 - For programmatic, data-driven or templated video: product explainers, social clips, animated charts, captions, load the `remotion` skill before writing code.
 - Runtime: React + Remotion. Expected artifact: MP4 / WebM video.
 - Animate transform and opacity only; always respect prefers-reduced-motion.
@@ -73,7 +81,7 @@ return &lt;div style={{transform: `scale(${scale})`}}&gt;Q3&lt;/div&gt;;</code><
 
 <h2>🪝 Hook: check every edit</h2>
 <p>Add to <code>.claude/settings.json</code>. After each Write/Edit of a <code>.tsx</code> file, Claude Code runs the check and the output comes back to the agent.</p>
-<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c5">📋 Copy</button></div><pre id="c5"><code>{
+<div class="code"><div class="code-bar"><span>.claude/settings.json</span><button data-copy="c6">📋 Copy</button></div><pre id="c6"><code>{
   &quot;hooks&quot;: {
     &quot;PostToolUse&quot;: [
       {
